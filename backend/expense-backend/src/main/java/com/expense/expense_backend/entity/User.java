@@ -1,4 +1,6 @@
 package com.expense.expense_backend.entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,7 +19,7 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
-    @JsonIgnore 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 
