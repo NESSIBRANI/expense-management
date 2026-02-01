@@ -22,14 +22,20 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    // 🔹 Constructeurs
+    private boolean enabled = true;
+    //  Constructeurs
     public User() {}
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = Role.EMPLOYEE;   // default
+        this.enabled = true;
+
     }
 
     // 🔹 Getters & Setters
@@ -63,5 +69,22 @@ public class User {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

@@ -1,4 +1,5 @@
 package com.expense.expense_backend.repository;
+import com.expense.expense_backend.entity.Role;
 
 import com.expense.expense_backend.entity.Expense;
 import com.expense.expense_backend.entity.User;
@@ -9,12 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ActiveProfiles("test")
 
 class ExpenseRepositoryIntegrationTest {
 
@@ -31,12 +34,28 @@ class ExpenseRepositoryIntegrationTest {
         expenseRepository.deleteAll();
         userRepository.deleteAll();
 
-        User user = new User("Mohamed", "mohamed@gmail.com", "secret");
+        User user = new User();
+        user.setName("Mohamed");
+        user.setEmail("mohamed@gmail.com");
+        user.setPassword("secret");
+        user.setRole(Role.EMPLOYEE);
+        user.setEnabled(true);
+        user.setRole(Role.EMPLOYEE);
+        user.setEnabled(true);
+
         userId = userRepository.save(user).getId();
 
-        expenseRepository.save(new Expense("Restaurant", 150.0, LocalDate.of(2026, 1, 13), user));
-        expenseRepository.save(new Expense("Restaurant", 145.0, LocalDate.of(2026, 1, 14), user));
-        expenseRepository.save(new Expense("Taxi", 300.0, LocalDate.of(2026, 1, 20), user));
+        expenseRepository.save(
+                new Expense("Restaurant", 150.0, LocalDate.of(2026, 1, 13), user)
+        );
+
+        expenseRepository.save(
+                new Expense("Restaurant", 145.0, LocalDate.of(2026, 1, 14), user)
+        );
+
+        expenseRepository.save(
+                new Expense("Taxi", 300.0, LocalDate.of(2026, 1, 20), user)
+        );
     }
 
     @Test
