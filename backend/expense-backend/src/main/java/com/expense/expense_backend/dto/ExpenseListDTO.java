@@ -2,7 +2,7 @@ package com.expense.expense_backend.dto;
 
 import java.time.LocalDate;
 
-public class ExpenseDTO {
+public class ExpenseListDTO {
 
     private Long id;
     private String title;
@@ -10,9 +10,9 @@ public class ExpenseDTO {
     private LocalDate date;
     private UserDTO user;
 
-    public ExpenseDTO() {}
+    public ExpenseListDTO() {}
 
-    public ExpenseDTO(Long id, String title, Double amount, LocalDate date, UserDTO user) {
+    public ExpenseListDTO(Long id, String title, Double amount, LocalDate date, UserDTO user) {
         this.id = id;
         this.title = title;
         this.amount = amount;
