@@ -1,0 +1,28 @@
+<h1>Manager Dashboard</h1>
+
+<div class="cards">
+  <mat-card class="card">
+    <mat-card-title>Total Requests</mat-card-title>
+    <mat-card-content>{{ totalExpenses }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="card pending">
+    <mat-card-title>Pending</mat-card-title>
+    <mat-card-content>{{ pendingExpenses }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="card approved">
+    <mat-card-title>Approved</mat-card-title>
+    <mat-card-content>{{ approvedExpenses }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="card rejected">
+    <mat-card-title>Rejected</mat-card-title>
+    <mat-card-content>{{ rejectedExpenses }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="card amount">
+    <mat-card-title>Total Amount</mat-card-title>
+    <mat-card-content>{{ totalAmount }} €</mat-card-content>
+  </mat-card>
+</div>

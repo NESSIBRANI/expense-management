@@ -1,0 +1,17 @@
+<div class="layout">
+  <aside class="sidebar">
+    <h2 class="logo">ExpenseApp</h2>
+
+    <nav>
+      <a routerLink="home" routerLinkActive="active">Dashboard</a>
+      <a routerLink="employees" routerLinkActive="active">Employees</a>
+      <a routerLink="expenses" routerLinkActive="active">Expenses</a>
+    </nav>
+
+    <button class="logout" (click)="logout()">Logout</button>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

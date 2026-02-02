@@ -1,0 +1,85 @@
+<h1>Expenses Requests</h1>
+
+<table class="expenses-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Employee</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let exp of managerExpenses">
+      <td>{{ exp.id }}</td>
+      <td>{{ exp.employee }}</td>
+      <td>{{ exp.amount }} €</td>
+      <td>{{ exp.date }}</td>
+      <td>
+        <span class="status" [ngClass]="exp.status.toLowerCase()">
+          {{ exp.status }}
+        </span>
+      </td>
+
+      <td>
+        <button
+          mat-raised-button
+          color="primary"
+          *ngIf="exp.status === 'PENDING'"
+          (click)="openModal(exp, 'APPROVE')">
+          Approve
+        </button>
+
+        <button
+          mat-raised-button
+          color="warn"
+          *ngIf="exp.status === 'PENDING'"
+          (click)="openModal(exp, 'REJECT')">
+          Reject
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- MODAL -->
+<!-- MODAL -->
+<div class="modal-backdrop" *ngIf="selectedExpense">
+  <div class="modal">
+    <h2>Confirmation</h2>
+
+    <p>
+      Are you sure you want to
+      <strong>{{ actionType }}</strong>
+      this expense request?
+    </p>
+
+    <div class="modal-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="confirmAction()">
+        Confirm
+      </button>
+
+      <button
+        mat-raised-button
+        color="basic"
+        (click)="closeModal()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- TOAST -->
+<div
+  class="toast"
+  *ngIf="toastMessage"
+  [ngClass]="toastType">
+  {{ toastMessage }}
+</div>
