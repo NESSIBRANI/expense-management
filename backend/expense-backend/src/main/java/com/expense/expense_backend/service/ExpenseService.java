@@ -1,6 +1,6 @@
 package com.expense.expense_backend.service;
 
-import com.expense.expense_backend.dto.ExpenseDTO;
+import com.expense.expense_backend.dto.ExpenseListDTO;
 import com.expense.expense_backend.dto.ExpenseMapper;
 import com.expense.expense_backend.dto.ExpenseRequest;
 import com.expense.expense_backend.dto.ExpenseResponse;
@@ -13,6 +13,7 @@ import com.expense.expense_backend.exception.BusinessException;
 import com.expense.expense_backend.exception.ResourceNotFoundException;
 import com.expense.expense_backend.repository.ExpenseReportRepository;
 import com.expense.expense_backend.repository.ExpenseRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import org.springframework.data.domain.Page;
@@ -35,7 +36,7 @@ public class ExpenseService {
         this.expenseRepository = expenseRepository;
         this.expenseReportRepository = expenseReportRepository;
     }
-
+@Transactional
     public ExpenseResponse createExpense(Long reportId, ExpenseRequest request) {
 
     ExpenseReport report = expenseReportRepository.findById(reportId)
@@ -63,7 +64,7 @@ public class ExpenseService {
     expense.setUser(user);
 
     Expense saved = expenseRepository.save(expense);
-
+     saved.getUser().getName();
     return ExpenseMapper.toExpenseResponse(saved);
 }
 
@@ -71,6 +72,7 @@ public class ExpenseService {
      // ============================
     // ✏️ MODIFIER UNE DEPENSE
     // ============================
+    @Transactional
    public ExpenseResponse updateExpense(Long expenseId, ExpenseRequest request) {
 
     Expense expense = expenseRepository.findById(expenseId)
@@ -99,6 +101,7 @@ public class ExpenseService {
     // ============================
     // 🗑️ SUPPRIMER UNE DEPENSE
     // ============================
+@Transactional
    public void deleteExpense(Long expenseId) {
 
     Expense expense = expenseRepository.findById(expenseId)
@@ -119,7 +122,7 @@ public class ExpenseService {
     // ===============================
     // 📄 GET MY EXPENSES (filters)
     // ===============================
-    public Page<ExpenseDTO> getMyExpenses(
+    public Page<ExpenseListDTO> getMyExpenses(
             Long userId,
             Double minAmount,
             Double maxAmount,
@@ -137,7 +140,7 @@ public class ExpenseService {
                         endDate,
                         pageable
                 )
-                .map(expense -> new ExpenseDTO(
+                .map(expense -> new ExpenseListDTO(
                         expense.getId(),
                         expense.getTitle(),
                         expense.getAmount(),

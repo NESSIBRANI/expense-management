@@ -36,6 +36,12 @@ public class Expense {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    // 🔹 La note de frais (ExpenseReport) à laquelle appartient la dépense
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "report_id")
+private ExpenseReport report;
+
+
     // =========================
     // 🔹 CONSTRUCTEURS
     // =========================
@@ -91,6 +97,10 @@ public class Expense {
     public User getUser() {
         return user;
     }
+public ExpenseReport getReport() {
+    return report;
+}
+
 
     // =========================
     // 🔹 SETTERS
@@ -127,4 +137,9 @@ public class Expense {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setReport(ExpenseReport report) {
+    this.report = report;
+}
+
 }

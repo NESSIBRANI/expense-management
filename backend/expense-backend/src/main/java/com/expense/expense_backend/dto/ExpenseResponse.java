@@ -1,8 +1,9 @@
 package com.expense.expense_backend.dto;
 
+import com.expense.expense_backend.entity.ExpenseStatus;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import com.expense.expense_backend.entity.ExpenseStatus;
 
 public class ExpenseResponse {
 
@@ -10,16 +11,10 @@ public class ExpenseResponse {
     private String title;
     private Double amount;
     private LocalDate date;
-
     private ExpenseStatus status;
     private LocalDateTime createdAt;
     private String managerComment;
-
     private Long userId;
-    private String userName;
-    private String userEmail;
-
-    public ExpenseResponse() {}
 
     public ExpenseResponse(
             Long id,
@@ -29,9 +24,7 @@ public class ExpenseResponse {
             ExpenseStatus status,
             LocalDateTime createdAt,
             String managerComment,
-            Long userId,
-            String userName,
-            String userEmail
+            Long userId
     ) {
         this.id = id;
         this.title = title;
@@ -41,8 +34,6 @@ public class ExpenseResponse {
         this.createdAt = createdAt;
         this.managerComment = managerComment;
         this.userId = userId;
-        this.userName = userName;
-        this.userEmail = userEmail;
     }
 
     public Long getId() { return id; }
@@ -53,6 +44,4 @@ public class ExpenseResponse {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public String getManagerComment() { return managerComment; }
     public Long getUserId() { return userId; }
-    public String getUserName() { return userName; }
-    public String getUserEmail() { return userEmail; }
 }
