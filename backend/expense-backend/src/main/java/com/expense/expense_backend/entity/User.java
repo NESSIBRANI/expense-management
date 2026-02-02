@@ -1,4 +1,6 @@
 package com.expense.expense_backend.entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,17 +19,23 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
-    @JsonIgnore 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    // 🔹 Constructeurs
+    private boolean enabled = true;
+    //  Constructeurs
     public User() {}
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = Role.EMPLOYEE;   // default
+        this.enabled = true;
+
     }
 
     // 🔹 Getters & Setters
@@ -61,5 +69,22 @@ public class User {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

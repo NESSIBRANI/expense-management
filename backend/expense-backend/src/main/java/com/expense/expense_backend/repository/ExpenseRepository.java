@@ -1,5 +1,7 @@
 package com.expense.expense_backend.repository;
 
+import com.expense.expense_backend.dto.EmployeeTotal;
+import com.expense.expense_backend.dto.MonthlyTotal;
 import com.expense.expense_backend.entity.Expense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.time.LocalDate;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
@@ -29,4 +32,28 @@ Page<Expense> findByUserWithFilters(
 );
 
 
+
+    // 🔹 Stats par employé
+    
+    @Query("""
+        SELECT 
+            e.user.id AS employeeId,
+            e.user.name AS employeeName,
+            SUM(e.amount) AS total
+        FROM Expense e
+        WHERE e.status = 'PAID'
+        GROUP BY e.user.id, e.user.name
+    """)
+    List<EmployeeTotal> totalPaidByEmployee();
+
+    @Query("""
+        SELECT 
+            FUNCTION('TO_CHAR', e.date, 'YYYY-MM') AS month,
+            SUM(e.amount) AS total
+        FROM Expense e
+        WHERE e.status = 'PAID'
+        GROUP BY FUNCTION('TO_CHAR', e.date, 'YYYY-MM')
+        ORDER BY month
+    """)
+    List<MonthlyTotal> totalPaidByMonth();
 }
