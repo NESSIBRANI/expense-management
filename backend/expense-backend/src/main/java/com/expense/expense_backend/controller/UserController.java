@@ -39,7 +39,14 @@ public class UserController {
 
         return userRepository.findAll();
     }
-
+    @GetMapping("/me")
+    public User getCurrentUser(
+        @org.springframework.security.core.annotation.AuthenticationPrincipal
+        org.springframework.security.core.userdetails.UserDetails userDetails
+) {
+    return userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+}
     // ✅ Get user by id
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {

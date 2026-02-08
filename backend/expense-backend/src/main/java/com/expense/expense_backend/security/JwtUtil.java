@@ -16,12 +16,11 @@ public class JwtUtil {
 
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    // Generate token
+    // 🔐 Génération du token
     public String generateToken(String email, String role) {
-
         return Jwts.builder()
                 .subject(email)
-                .claim("role", role)
+                .claim("role", role) // EMPLOYEE / MANAGER / ADMIN
                 .issuedAt(new Date())
                 .expiration(
                         new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)
@@ -30,30 +29,28 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract email
+    // 📧 Email
     public String extractUsername(String token) {
-
         return getClaims(token).getSubject();
     }
 
-    // Validate token
-    public boolean validateToken(String token, String email) {
-
-        String tokenEmail = extractUsername(token);
-        return tokenEmail.equals(email) && !isExpired(token);
+    // 🎭 Rôle
+    public String extractRole(String token) {
+        return getClaims(token).get("role", String.class);
     }
 
-    // Check expiration
-    private boolean isExpired(String token) {
+    // ✅ Validation
+    public boolean validateToken(String token, String email) {
+        return extractUsername(token).equals(email) && !isExpired(token);
+    }
 
+    private boolean isExpired(String token) {
         return getClaims(token)
                 .getExpiration()
                 .before(new Date());
     }
 
-    // Get claims
     private Claims getClaims(String token) {
-
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
