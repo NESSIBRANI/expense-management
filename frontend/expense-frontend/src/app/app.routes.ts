@@ -1,51 +1,45 @@
 import { Routes } from '@angular/router';
 
-// Auth
 import { LoginComponent } from './auth/login/login';
+import { RegisterComponent } from './auth/register/register';
 
-// Dashboards
-import { EmployeeDashboardComponent } from './employee/employee-dashboard/employee-dashboard';
-import { ManagerDashboardComponent } from './manager/manager-dashboard/manager-dashboard';
+import { DashboardComponent } from './employee/dashboard/dashboard.component';
+import { AddExpenseComponent } from './employee/add-expenses/add-expense.component';
+import { ExpensesComponent } from './employee/expenses/expenses.component';
+import { ReportsComponent } from './employee/reports/reports.component';
 
-// Guards
-import { AuthGuard } from './guards/auth-guard';
-import { RoleGuard } from './guards/role-guard';
-
-// Manager / Admin pages
-import { AdminHomeComponent } from './manager/admin-home/admin-home';
-import { AdminEmployeesComponent } from './manager/admin-employees/admin-employees';
-import { AdminExpensesComponent } from './manager/admin-expenses/admin-expenses';
-import { AdminReportsComponent } from './manager/admin-reports/admin-reports';
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
+import { UnauthorizedComponent } from './shared/unauthorized/unauthorized';
 
 export const routes: Routes = [
-
-  // Redirect root → login
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-  // Login
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
-  // Employee dashboard
   {
     path: 'employee',
-    component: EmployeeDashboardComponent,
-   // canActivate: [AuthGuard, RoleGuard],
-   // data: { role: 'EMPLOYEE' }
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'EMPLOYEE' },
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'add-expense/:reportId', component: AddExpenseComponent },
+      { path: 'expenses', component: ExpensesComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
   },
 
-  // Manager / Admin dashboard
   {
     path: 'manager',
-    component: ManagerDashboardComponent,
-   // canActivate: [AuthGuard, RoleGuard],
-   // data: { role: 'MANAGER' },
-    children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: AdminHomeComponent },
-      { path: 'employees', component: AdminEmployeesComponent },
-      { path: 'expenses', component: AdminExpensesComponent },
-      { path: 'reports', component: AdminReportsComponent },
-    ]
-  }
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'MANAGER' },
+    loadComponent: () =>
+      import('./manager-dashboard/manager-dashboard')
+        .then(m => m.ManagerDashboardComponent)
+  },
 
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: '**', redirectTo: 'login' }
 ];

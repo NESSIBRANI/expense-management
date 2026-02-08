@@ -1,0 +1,26 @@
+<mat-sidenav-container class="container">
+
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/employee">👤 Employee</a>
+      <a mat-list-item routerLink="/manager">🧑‍💼 Manager</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar color="primary">
+      <span>Expense Management</span>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
