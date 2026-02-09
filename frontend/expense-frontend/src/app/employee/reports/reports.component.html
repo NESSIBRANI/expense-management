@@ -1,0 +1,38 @@
+<div class="container">
+
+  <div class="header">
+    <h1>📁 Mes rapports</h1>
+
+    <button mat-raised-button color="primary" (click)="createReport()">
+      ➕ Nouveau rapport
+    </button>
+  </div>
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <mat-card *ngFor="let report of reports" class="report-card">
+
+    <div class="report-header">
+      <div>
+        <strong>Référence :</strong> {{ report.reference }} <br>
+        <small>{{ report.createdAt | date:'dd/MM/yyyy' }}</small>
+      </div>
+
+      <mat-chip color="primary" selected>
+        {{ report.status || 'DRAFT' }}
+      </mat-chip>
+    </div>
+
+    <div class="actions" *ngIf="report.status === 'DRAFT'">
+      <button mat-stroked-button color="primary" [routerLink]="['/employee/add-expense', report.id]">
+        ➕ Ajouter dépense
+      </button>
+
+      <button mat-raised-button color="accent" (click)="submitReport(report.id)" style="margin-left: 10px;">
+        📤 Soumettre
+      </button>
+    </div>
+
+  </mat-card>
+
+</div>

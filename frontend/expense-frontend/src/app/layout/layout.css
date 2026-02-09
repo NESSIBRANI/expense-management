@@ -1,0 +1,13 @@
+.container {
+  height: 100vh;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  padding: 20px;
+  background: #f5f6fa;
+  min-height: calc(100vh - 64px);
+}

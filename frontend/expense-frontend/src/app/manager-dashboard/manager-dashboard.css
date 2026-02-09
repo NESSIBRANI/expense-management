@@ -1,0 +1,22 @@
+.full {
+  width: 100%;
+}
+
+mat-card {
+  margin-top: 20px;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.approved {
+  color: green;
+  font-weight: bold;
+}
+
+.rejected {
+  color: red;
+  font-weight: bold;
+}

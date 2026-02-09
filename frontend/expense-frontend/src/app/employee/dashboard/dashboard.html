@@ -1,0 +1,23 @@
+<div class="dashboard-container">
+  <h1>👤 Tableau de bord Employé</h1>
+
+  <div class="cards">
+    <mat-card class="card" (click)="onAddExpense()">
+      <mat-icon>add_circle</mat-icon>
+      <h3>Ajouter une note</h3>
+      <p>Créer un rapport et ajouter une dépense</p>
+    </mat-card>
+
+    <mat-card class="card" (click)="goReports()">
+      <mat-icon>folder</mat-icon>
+      <h3>Mes rapports</h3>
+      <p>Voir / soumettre mes rapports</p>
+    </mat-card>
+
+    <mat-card class="card" (click)="goExpenses()">
+      <mat-icon>receipt_long</mat-icon>
+      <h3>Mes notes</h3>
+      <p>Consulter l’historique</p>
+    </mat-card>
+  </div>
+</div>
