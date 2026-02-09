@@ -2,8 +2,11 @@ package com.expense.expense_backend.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+<<<<<<< Updated upstream
 
+
+=======
+>>>>>>> Stashed changes
 import jakarta.persistence.*;
 
 @Entity
@@ -37,6 +40,7 @@ public class User {
         this.enabled = true;
 
     }
+    
 
     // 🔹 Getters & Setters
     public Long getId() {

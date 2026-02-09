@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -28,19 +28,25 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("/register")
-    public User register(@RequestBody User user) {
+@PostMapping("/register")
+public User register(@RequestBody User user) {
 
-        user.setPassword(
-                passwordEncoder.encode(user.getPassword())
-        );
+    // 🔐 Encoder le mot de passe
+    user.setPassword(
+            passwordEncoder.encode(user.getPassword())
+    );
+
+    // ✅ EMPLOYEE par défaut
+    if (user.getRole() == null) {
         user.setRole(Role.EMPLOYEE);
-
-        user.setEnabled(true);
-
-
-        return userRepository.save(user);
     }
+
+    // ✅ Compte activé
+    user.setEnabled(true);
+
+    return userRepository.save(user);
+}
+
 
 
     @PostMapping("/login")

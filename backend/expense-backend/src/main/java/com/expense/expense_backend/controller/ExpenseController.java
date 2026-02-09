@@ -4,12 +4,11 @@ import com.expense.expense_backend.dto.ExpenseRequest;
 import com.expense.expense_backend.dto.ExpenseResponse;
 import com.expense.expense_backend.service.ExpenseService;
 import com.expense.expense_backend.dto.ExpenseListDTO;
-
-
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,31 +59,35 @@ public ResponseEntity<Void> deleteExpense(@PathVariable Long expenseId) {
     // ===============================
     // 📄 GET MY EXPENSES (filters + pagination)
     // ===============================
-    @GetMapping("/my")
-    public Page<ExpenseListDTO> getMyExpenses(
-            @RequestParam Long userId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
+   @GetMapping("/my")
+public Page<ExpenseListDTO> getMyExpenses(
+        @RequestParam Long userId,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
 
-            @RequestParam(required = false) Double minAmount,
-            @RequestParam(required = false) Double maxAmount,
+        @RequestParam(required = false) Double minAmount,
+        @RequestParam(required = false) Double maxAmount,
 
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate startDate,
+        @RequestParam(required = false)
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+        LocalDate startDate,
 
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate endDate
-    ) {
+        @RequestParam(required = false)
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+        LocalDate endDate
+) {
 
-        return expenseService.getMyExpenses(
-                userId,
-                minAmount,
-                maxAmount,
-                startDate,
-                endDate,
-                PageRequest.of(page, size)
-        );
-    }
+    PageRequest pageable =
+            PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+    return expenseService.getMyExpenses(
+            userId,
+            minAmount,
+            maxAmount,
+            startDate,
+            endDate,
+            pageable   // ✅ UTILISÉ ICI
+    );
+}
+
 }

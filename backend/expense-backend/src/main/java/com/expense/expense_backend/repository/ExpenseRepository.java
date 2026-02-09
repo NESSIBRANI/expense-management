@@ -13,15 +13,25 @@ import java.util.List;
 import java.time.LocalDate;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-@Query("""
-    SELECT e FROM Expense e
-WHERE e.user.id = :userId
-AND e.amount >= COALESCE(:minAmount, e.amount)
-AND e.amount <= COALESCE(:maxAmount, e.amount)
-AND e.date >= COALESCE(:startDate, e.date)
-AND e.date <= COALESCE(:endDate, e.date)
-
-""")
+@Query(
+    value = """
+        SELECT e FROM Expense e
+        JOIN FETCH e.user
+        WHERE e.user.id = :userId
+        AND e.amount >= COALESCE(:minAmount, e.amount)
+        AND e.amount <= COALESCE(:maxAmount, e.amount)
+        AND e.date >= COALESCE(:startDate, e.date)
+        AND e.date <= COALESCE(:endDate, e.date)
+    """,
+    countQuery = """
+        SELECT COUNT(e) FROM Expense e
+        WHERE e.user.id = :userId
+        AND e.amount >= COALESCE(:minAmount, e.amount)
+        AND e.amount <= COALESCE(:maxAmount, e.amount)
+        AND e.date >= COALESCE(:startDate, e.date)
+        AND e.date <= COALESCE(:endDate, e.date)
+    """
+)
 Page<Expense> findByUserWithFilters(
         @Param("userId") Long userId,
         @Param("minAmount") Double minAmount,
@@ -30,6 +40,8 @@ Page<Expense> findByUserWithFilters(
         @Param("endDate") LocalDate endDate,
         Pageable pageable
 );
+
+
 
 
 
