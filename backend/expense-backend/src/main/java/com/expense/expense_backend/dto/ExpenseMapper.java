@@ -31,15 +31,18 @@ public class ExpenseMapper {
         List<ExpenseResponse> items =
                 r.getItems() == null
                         ? List.of()
-                        : r.getItems().stream()
-                                .map(ExpenseMapper::toExpenseResponse)
-                                .toList();
-
+                        : r.getItems()
+                           .stream()
+                           .map(ExpenseMapper::toExpenseResponse)
+                           .toList();
+    
         return new ExpenseReportResponse(
                 r.getId(),
                 r.getReference(),
                 r.getCreatedAt(),
+                r.getStatus().name(),   // convert enum to String
                 r.getEmployee().getId(),
+                r.getEmployee().getName(),
                 items,
                 r.getPaidAt()
         );

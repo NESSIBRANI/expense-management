@@ -7,7 +7,9 @@ public record ExpenseReportResponse(
         Long id,
         String reference,
         LocalDateTime createdAt,
-        Long employeeId,
+        String status,
+        Long employeeId,    
+        String employeeName,
         List<ExpenseResponse> items,
         LocalDateTime paidAt
 ) {}

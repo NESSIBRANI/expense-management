@@ -17,5 +17,9 @@ public interface ExpenseReportRepository extends JpaRepository<ExpenseReport, Lo
 
     @EntityGraph(attributePaths = {"items", "employee"})
     Page<ExpenseReport> findByEmployeeId(Long employeeId, Pageable pageable);
+    // 🔥 ADD THIS
+    @Override
+    @EntityGraph(attributePaths = {"items", "employee"})
+    Page<ExpenseReport> findAll(Pageable pageable);
 
 }

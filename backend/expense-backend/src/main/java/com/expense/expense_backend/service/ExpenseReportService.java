@@ -180,4 +180,21 @@ public class ExpenseReportService {
 
         return report;
     }
+    // jdid 
+    @Transactional(readOnly = true)
+public Page<ExpenseReport> findByStatus(
+        ExpenseStatus status,
+        int page,
+        int size
+) {
+    return reportRepository.findByStatus(
+            status,
+            PageRequest.of(page, size)
+    );
+}
+
+@Transactional(readOnly = true)
+public Page<ExpenseReport> findAll(int page, int size) {
+    return reportRepository.findAll(PageRequest.of(page, size));
+}
 }
