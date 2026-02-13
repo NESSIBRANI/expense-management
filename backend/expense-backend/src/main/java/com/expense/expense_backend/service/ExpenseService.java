@@ -58,7 +58,7 @@ public class ExpenseService {
     expense.setDate(
             request.getDate() != null ? request.getDate() : LocalDate.now()
     );
-    expense.setStatus(ExpenseStatus.DRAFT);
+   expense.setStatus(ExpenseStatus.SUBMITTED);
     expense.setCreatedAt(LocalDateTime.now());
     expense.setReport(report);
     expense.setUser(user);
@@ -141,15 +141,21 @@ public class ExpenseService {
                         pageable
                 )
                 .map(expense -> new ExpenseListDTO(
-                        expense.getId(),
-                        expense.getTitle(),
-                        expense.getAmount(),
-                        expense.getDate(),
-                        new UserDTO(
-                                expense.getUser().getId(),
-                                expense.getUser().getName(),
-                                expense.getUser().getEmail()
-                        )
-                ));
+    expense.getId(),
+    expense.getTitle(),
+    expense.getAmount(),
+    expense.getDate(),
+    expense.getStatus(),   // ✅ ICI
+    new UserDTO(
+        expense.getUser().getId(),
+        expense.getUser().getName(),
+        expense.getUser().getEmail(),
+        expense.getUser().getRole(),
+        expense.getUser().isEnabled()
+    )
+));
+
+
+               
     }
 }

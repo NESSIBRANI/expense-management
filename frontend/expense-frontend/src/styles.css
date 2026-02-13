@@ -1,11 +1,6 @@
-/* ======================================================
-   MASTER PROFESSIONAL ADMIN THEME – ExpensePro
-   Clean • Elegant • Academic • Enterprise Ready
-====================================================== */
 
 /* =========================
    ROOT DESIGN SYSTEM
-========================= */
 
 :root {
   --primary: #2563eb;
@@ -36,7 +31,6 @@
 
 /* =========================
    GLOBAL RESET
-========================= */
 
 * {
   margin: 0;
@@ -54,7 +48,6 @@ html, body {
 
 /* =========================
    ADMIN LAYOUT
-========================= */
 
 .admin-container {
   display: flex;
@@ -65,7 +58,6 @@ html, body {
 
 /* =========================
    SIDEBAR
-========================= */
 
 .sidebar {
   width: 260px;
@@ -117,7 +109,6 @@ html, body {
 
 /* =========================
    RIGHT SECTION
-========================= */
 
 .main-section {
   flex: 1;
@@ -128,7 +119,6 @@ html, body {
 
 /* =========================
    APPBAR (TOP BAR)
-========================= */
 
 .appbar {
   height: 70px;
@@ -160,7 +150,6 @@ html, body {
 
 /* =========================
    MAIN CONTENT
-========================= */
 
 .content {
   flex: 1;
@@ -170,7 +159,6 @@ html, body {
 
 /* =========================
    GLOBAL CARD
-========================= */
 
 .card {
   background: var(--bg-content);
@@ -187,7 +175,6 @@ html, body {
 
 /* =========================
    TABLE SYSTEM
-========================= */
 
 table {
   width: 100%;
@@ -221,7 +208,6 @@ tr:hover {
 
 /* =========================
    BUTTON SYSTEM
-========================= */
 
 button {
   border-radius: var(--radius-sm) !important;
@@ -235,7 +221,6 @@ button:hover {
 
 /* =========================
    SCROLLBAR
-========================= */
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -252,7 +237,6 @@ button:hover {
 
 /* =========================
    RESPONSIVE
-========================= */
 
 @media (max-width: 992px) {
   .sidebar {
@@ -263,3 +247,4 @@ button:hover {
     padding: 25px;
   }
 }
+/* You can add global styles to this file, and also import other style files */

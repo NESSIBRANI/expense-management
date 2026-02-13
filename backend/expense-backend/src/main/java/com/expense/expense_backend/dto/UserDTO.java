@@ -19,7 +19,20 @@ public class UserDTO {
         this.role = role;
         this.enabled = enabled;
     }
+    // ✅ CONSTRUCTEUR SIMPLIFIÉ (POUR LISTING)
+public UserDTO(Long id, String name, String email) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+}
 
+
+
+    public UserDTO(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
     // Getters & Setters
 
     public Long getId() {

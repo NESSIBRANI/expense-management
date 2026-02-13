@@ -1,0 +1,51 @@
+<div class="login-container">
+
+  <mat-card class="login-card">
+    <mat-card-title>🔐 Sign In</mat-card-title>
+
+    <mat-card-content>
+      <form (ngSubmit)="onLogin()" #f="ngForm">
+
+        <!-- EMAIL -->
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+          />
+        </mat-form-field>
+
+        <!-- PASSWORD -->
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+        </mat-form-field>
+
+        <!-- BUTTON -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full"
+          [disabled]="loading || f.invalid"
+        >
+          {{ loading ? 'Signing in...' : 'Sign In' }}
+        </button>
+
+        <!-- MESSAGE -->
+        <p class="error" *ngIf="message">{{ message }}</p>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>
