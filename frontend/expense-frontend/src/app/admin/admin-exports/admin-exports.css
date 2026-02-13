@@ -1,0 +1,133 @@
+/* =========================
+   PAGE CONTAINER
+========================= */
+
+.exports-container {
+  padding: 30px;
+}
+
+.exports-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.exports-header p {
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.exports-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* =========================
+   CARD STYLE (like stats page)
+========================= */
+
+.export-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  border-left: 6px solid transparent;
+}
+
+.export-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* Colored Left Accent (like statistics cards) */
+
+.export-card.employee {
+  border-left-color: #2563eb; /* Blue */
+}
+
+.export-card.month {
+  border-left-color: #16a34a; /* Green */
+}
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.export-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.export-info {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.export-icon {
+  font-size: 36px;
+}
+
+.export-info h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.export-info p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.export-meta {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* =========================
+   BUTTON STYLE
+========================= */
+
+.btn-export {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-export:hover {
+  background: #1e40af;
+}
+
+.btn-export:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .export-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .btn-export {
+    width: 100%;
+  }
+}

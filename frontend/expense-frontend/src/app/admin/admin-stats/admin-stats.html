@@ -1,0 +1,103 @@
+<div class="stats-wrapper">
+
+  <!-- Header -->
+  <div class="stats-header">
+    <h1>Statistics Dashboard</h1>
+    <p>Financial insights and payment analytics overview</p>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+
+    <div class="kpi-card blue">
+      <span class="kpi-label">Total Paid</span>
+      <span class="kpi-value">
+        {{ getTotalPaid() | number:'1.2-2' }} UM
+      </span>
+    </div>
+
+    <div class="kpi-card green">
+      <span class="kpi-label">Best Month</span>
+      <span class="kpi-value">
+        {{ getBestMonth()?.month || '—' }}
+      </span>
+    </div>
+
+    <div class="kpi-card purple">
+      <span class="kpi-label">Top Employee</span>
+      <span class="kpi-value">
+        {{ getTopEmployee()?.employeeName || '—' }}
+      </span>
+    </div>
+
+  </div>
+
+  <!-- MONTH TABLE -->
+  <div class="stats-card">
+    <div class="card-header">
+      <h2>Monthly Paid Overview</h2>
+    </div>
+
+    <div class="table-container">
+
+      <table *ngIf="monthly.length > 0; else noMonthly">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th class="amount">Total Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of monthly">
+            <td>{{ m.month }}</td>
+            <td class="amount">
+              {{ m.total | number:'1.2-2' }} UM
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noMonthly>
+        <div class="empty-state">
+          No monthly statistics available
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+
+  <!-- EMPLOYEE TABLE -->
+  <div class="stats-card">
+    <div class="card-header">
+      <h2>Employee Payment Summary</h2>
+    </div>
+
+    <div class="table-container">
+
+      <table *ngIf="employees.length > 0; else noEmployees">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th class="amount">Total Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of employees">
+            <td>{{ e.employeeName }}</td>
+            <td class="amount">
+              {{ e.total | number:'1.2-2' }} UM
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noEmployees>
+        <div class="empty-state">
+          No employee statistics available
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+
+</div>

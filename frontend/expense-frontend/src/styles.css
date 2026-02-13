@@ -1,0 +1,265 @@
+/* ======================================================
+   MASTER PROFESSIONAL ADMIN THEME – ExpensePro
+   Clean • Elegant • Academic • Enterprise Ready
+====================================================== */
+
+/* =========================
+   ROOT DESIGN SYSTEM
+========================= */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --accent: #38bdf8;
+
+  --bg-main: #f4f7fb;
+  --bg-content: #ffffff;
+
+  --sidebar-bg: #0f172a;
+  --sidebar-hover: #1e293b;
+
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+
+  --border-light: #e2e8f0;
+
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-lg: 0 15px 40px rgba(0,0,0,0.08);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --transition: all 0.25s ease;
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================
+   ADMIN LAYOUT
+========================= */
+
+.admin-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg-main);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #0f172a, #111827);
+  color: white;
+  padding: 30px 22px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+/* Navigation */
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.sidebar nav a:hover {
+  background: var(--sidebar-hover);
+  color: white;
+  transform: translateX(4px);
+}
+
+.sidebar nav a.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+}
+
+/* =========================
+   RIGHT SECTION
+========================= */
+
+.main-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
+}
+
+/* =========================
+   APPBAR (TOP BAR)
+========================= */
+
+.appbar {
+  height: 70px;
+  background: var(--bg-content);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.appbar h2 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.appbar .right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.user {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+/* =========================
+   GLOBAL CARD
+========================= */
+
+.card {
+  background: var(--bg-content);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================
+   TABLE SYSTEM
+========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-content);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+th {
+  background: #f1f5f9;
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 14px;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* =========================
+   BUTTON SYSTEM
+========================= */
+
+button {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .content {
+    padding: 25px;
+  }
+}

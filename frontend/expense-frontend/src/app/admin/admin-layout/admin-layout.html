@@ -1,0 +1,37 @@
+<div class="admin-container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">ExpensePro</div>
+
+    <nav>
+      <a routerLink="/admin" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/expenses" routerLinkActive="active">Expenses</a>
+      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+      <a routerLink="/admin/exports" routerLinkActive="active">Exports</a>
+      <a routerLink="/admin/stats" routerLinkActive="active">Statistics</a>
+    </nav>
+  </aside>
+
+  <!-- RIGHT SIDE -->
+  <div class="main-section">
+
+    <!-- APPBAR -->
+    <header class="appbar">
+      <div class="left">
+        <h2>Admin Dashboard</h2>
+      </div>
+
+      <div class="right">
+        <span class="user">Admin</span>
+        <button mat-raised-button color="warn">Logout</button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

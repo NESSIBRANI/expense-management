@@ -1,0 +1,148 @@
+<div class="dashboard-wrapper">
+
+  <!-- ================= KPI CARDS ================= -->
+<div class="cards">
+
+  <div class="stat-card total">
+    <div class="stat-content">
+      <span class="stat-label">Total Expenses</span>
+      <span class="stat-value">
+        {{ stats.total | number:'1.2-2' }} UM
+      </span>
+    </div>
+  </div>
+
+  <div class="stat-card paid">
+    <div class="stat-content">
+      <span class="stat-label">Paid</span>
+      <span class="stat-value">
+        {{ stats.paid | number:'1.2-2' }} UM
+      </span>
+    </div>
+  </div>
+
+  <div class="stat-card approved">
+    <div class="stat-content">
+      <span class="stat-label">Approved</span>
+      <span class="stat-value">
+        {{ stats.approved | number:'1.2-2' }} UM
+      </span>
+    </div>
+  </div>
+
+  <div class="stat-card rejected">
+    <div class="stat-content">
+      <span class="stat-label">Rejected</span>
+      <span class="stat-value">
+        {{ stats.rejected | number:'1.2-2' }} UM
+      </span>
+    </div>
+  </div>
+
+</div>
+  <!-- CHARTS -->
+  <div class="charts-container">
+    <div class="chart-card">
+      <h3>Expenses by Status</h3>
+      <canvas id="expensesChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Users by Role</h3>
+      <canvas id="usersChart"></canvas>
+    </div>
+  </div>
+
+  <!-- RECENT EXPENSES -->
+  <div class="section">
+    <div class="section-header">
+      <h3>Recent Expenses</h3>
+      <button class="view-all-btn" routerLink="/admin/expenses">
+        View all
+      </button>
+    </div>
+
+    <table class="expenses-table">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let r of reports">
+          <td>{{ r.employeeName }}</td>
+          <td>
+            <ng-container *ngIf="r.calculatedTotal > 0; else noAmount">
+              {{ r.calculatedTotal }} UM
+            </ng-container>
+          
+            <ng-template #noAmount>
+                —
+            </ng-template>
+          </td>
+          <td>
+            <span class="status" [ngClass]="r.status.toLowerCase()">
+              {{ r.status }}
+            </span>
+          </td>
+          <td>{{ r.createdAt | date:'dd MMM yyyy' }}</td>
+        </tr>
+
+        <tr *ngIf="reports.length === 0">
+          <td colspan="4" class="empty">
+            No recent expenses
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RECENT USERS -->
+  <div class="section">
+    <div class="section-header">
+      <h3>Recent Users</h3>
+      <button class="view-all-btn" routerLink="/admin/users">
+        View all
+      </button>
+    </div>
+
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let user of recentUsers">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [class.active]="user.enabled"
+              [class.disabled]="!user.enabled"
+            >
+              {{ user.enabled ? 'Active' : 'Disabled' }}
+            </span>
+          </td>
+        </tr>
+
+        <tr *ngIf="recentUsers.length === 0">
+          <td colspan="4" class="empty">
+            No recent users
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

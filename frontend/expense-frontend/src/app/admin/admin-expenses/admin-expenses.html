@@ -1,0 +1,67 @@
+<h1 class="page-title">Expenses Management</h1>
+
+
+
+<div *ngIf="loading" class="loading">
+  Loading reports...
+</div>
+
+<!-- APPROVED -->
+<div class="section-card">
+  <h2>Approved Reports (Waiting for Payment)</h2>
+
+  <table *ngIf="approvedReports.length > 0">
+    <thead>
+      <tr>
+        <th>Reference</th>
+        <th>Employee</th>
+        <th>Created At</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of approvedReports">
+        <td>{{ r.reference }}</td>
+        <td>{{ r.employeeName }}</td>
+        <td>{{ r.createdAt | date }}</td>
+        <td class="text-center">
+          <button class="btn-pay" (click)="pay(r.id)">
+            Pay Now
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="approvedReports.length === 0" class="empty">
+    No approved reports pending payment.
+  </p>
+</div>
+
+<!-- OTHER -->
+<div class="section-card">
+  <h2>All Other Reports</h2>
+
+  <table *ngIf="otherReports.length > 0">
+    <thead>
+      <tr>
+        <th>Reference</th>
+        <th>Employee</th>
+        <th>Status</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of otherReports">
+        <td>{{ r.reference }}</td>
+        <td>{{ r.employeeName }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.createdAt | date }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="otherReports.length === 0" class="empty">
+    No other reports available.
+  </p>
+</div>

@@ -1,0 +1,66 @@
+<div class="exports-container">
+
+  <div class="exports-header">
+    <h1>Financial Reports</h1>
+    <p>Download structured financial reports for accounting and analysis.</p>
+  </div>
+
+  <div class="exports-grid">
+
+    <!-- ===================== -->
+    <!-- EMPLOYEE REPORT -->
+    <!-- ===================== -->
+    <div class="export-card employee">
+      <div class="export-card-content">
+        <div class="export-info">
+          <div class="export-icon">👤</div>
+
+          <div>
+            <h3>Paid Expenses by Employee</h3>
+            <p>
+              Export a detailed summary of all paid expenses grouped by employee.
+            </p>
+            <span class="export-meta">Excel (.xlsx)</span>
+          </div>
+        </div>
+
+        <button
+          class="btn-export"
+          (click)="exportByEmployee()"
+          [disabled]="isExportingEmployee"
+        >
+          {{ isExportingEmployee ? 'Exporting...' : 'Download Report' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- ===================== -->
+    <!-- MONTH REPORT -->
+    <!-- ===================== -->
+    <div class="export-card month">
+      <div class="export-card-content">
+        <div class="export-info">
+          <div class="export-icon">📅</div>
+
+          <div>
+            <h3>Paid Expenses by Month</h3>
+            <p>
+              Export a monthly financial summary of all paid expenses.
+            </p>
+            <span class="export-meta">Excel (.xlsx)</span>
+          </div>
+        </div>
+
+        <button
+          class="btn-export"
+          (click)="exportByMonth()"
+          [disabled]="isExportingMonth"
+        >
+          {{ isExportingMonth ? 'Exporting...' : 'Download Report' }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
