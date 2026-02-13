@@ -1,0 +1,79 @@
+<div class="users-container">
+  <div class="page-header">
+    <h2>Users Management</h2>
+
+    <button class="export-btn" (click)="exportUsersToCSV()">
+      Export users (CSV)
+    </button>
+  </div>
+
+  <!-- Search -->
+  <div>
+  <input
+    type="text"
+    placeholder="Search users..."
+    class="search-input"
+    [(ngModel)]="search"
+  />
+  </div>
+
+  <!-- Table -->
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="!loading; else loadingTpl">
+      <tr *ngFor="let user of filteredUsers()">
+    
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+
+        <!-- Role -->
+        <td>
+          <span class="role-badge" [ngClass]="user.role.toLowerCase()">
+            {{ user.role }}
+          </span>
+        </td>
+
+        <!-- Status -->
+        <td>
+          <span
+            class="status-badge"
+            [class.active]="user.enabled"
+            [class.disabled]="!user.enabled"
+          >
+            {{ user.enabled ? 'Active' : 'Disabled' }}
+          </span>
+        </td>
+
+        <!-- Actions -->
+        <td class="actions">
+          <button class="btn toggle" type="button" (click)="toggle(user)">
+            {{ user.enabled ? 'Disable' : 'Enable' }}
+          </button>
+
+          
+          
+        </td>
+      </tr>
+
+      <tr *ngIf="filteredUsers().length === 0">
+        <td colspan="5" class="empty">No users found</td>
+      </tr>
+    </tbody>
+    <ng-template #loadingTpl>
+      <tbody>
+        <tr>
+          <td colspan="5" class="empty">Loading users...</td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

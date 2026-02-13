@@ -1,0 +1,99 @@
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+.header-actions {
+  margin-bottom: 20px;
+}
+
+.section-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.section-card h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f1f5f9;
+}
+
+th {
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #475569;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+/* PAY BUTTON - same as Users action */
+.btn-pay {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-pay:hover {
+  background-color: #bae6fd;
+}
+
+/* EXPORT BUTTON */
+.btn-export {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.btn-export:hover {
+  background: #334155;
+}
+
+.loading {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.empty {
+  font-size: 14px;
+  color: #94a3b8;
+}
