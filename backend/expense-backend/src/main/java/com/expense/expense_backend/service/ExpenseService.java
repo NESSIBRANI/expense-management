@@ -4,7 +4,6 @@ import com.expense.expense_backend.dto.ExpenseListDTO;
 import com.expense.expense_backend.dto.ExpenseMapper;
 import com.expense.expense_backend.dto.ExpenseRequest;
 import com.expense.expense_backend.dto.ExpenseResponse;
-import com.expense.expense_backend.dto.UserDTO;
 import com.expense.expense_backend.entity.Expense;
 import com.expense.expense_backend.entity.ExpenseReport;
 import com.expense.expense_backend.entity.ExpenseStatus;
@@ -14,6 +13,9 @@ import com.expense.expense_backend.exception.ResourceNotFoundException;
 import com.expense.expense_backend.repository.ExpenseReportRepository;
 import com.expense.expense_backend.repository.ExpenseRepository;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import com.expense.expense_backend.repository.UserRepository;
+
 
 
 import org.springframework.data.domain.Page;
@@ -25,19 +27,25 @@ import java.time.LocalDateTime;
 
 @Service
 public class ExpenseService {
+private final UserRepository userRepository;
 
     private final ExpenseRepository expenseRepository;
     private final ExpenseReportRepository expenseReportRepository;
+   
+
 
     public ExpenseService(
-            ExpenseRepository expenseRepository,
-            ExpenseReportRepository expenseReportRepository
-    ) {
-        this.expenseRepository = expenseRepository;
-        this.expenseReportRepository = expenseReportRepository;
-    }
+        ExpenseRepository expenseRepository,
+        ExpenseReportRepository expenseReportRepository,
+        UserRepository userRepository
+         
+) {
+    this.expenseRepository = expenseRepository;
+    this.expenseReportRepository = expenseReportRepository;
+    this.userRepository = userRepository;
+}
 @Transactional
-    public ExpenseResponse createExpense(Long reportId, ExpenseRequest request) {
+public ExpenseResponse createExpense(Long reportId, ExpenseRequest request) {
 
     ExpenseReport report = expenseReportRepository.findById(reportId)
             .orElseThrow(() ->
@@ -58,15 +66,53 @@ public class ExpenseService {
     expense.setDate(
             request.getDate() != null ? request.getDate() : LocalDate.now()
     );
-   expense.setStatus(ExpenseStatus.SUBMITTED);
+    expense.setStatus(ExpenseStatus.DRAFT);
     expense.setCreatedAt(LocalDateTime.now());
-    expense.setReport(report);
     expense.setUser(user);
 
-    Expense saved = expenseRepository.save(expense);
-     saved.getUser().getName();
-    return ExpenseMapper.toExpenseResponse(saved);
+    // ⭐⭐⭐ LA LIGNE LA PLUS IMPORTANTE
+    report.addExpense(expense);
+
+    report.addExpense(expense);
+expenseReportRepository.save(report);
+
+
+    return ExpenseMapper.toExpenseResponse(expense);
 }
+
+
+@Transactional(readOnly = true)
+public List<ExpenseListDTO> getExpensesByReport(Long reportId, String email) {
+
+    // récupérer utilisateur connecté
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                    new ResourceNotFoundException("User not found")
+            );
+
+    // récupérer le report
+    ExpenseReport report = expenseReportRepository.findById(reportId)
+            .orElseThrow(() ->
+                    new ResourceNotFoundException("Report introuvable")
+            );
+
+    // 🔐 sécurité : le report doit appartenir au user
+    if (!report.getEmployee().getId().equals(user.getId())) {
+        throw new BusinessException("Accès interdit à ce report");
+    }
+
+    // ⭐⭐⭐ LA LIGNE IMPORTANTE (ICI exactement)
+    report.getItems().size();
+
+    // récupérer les dépenses
+    List<Expense> expenses = expenseRepository.findByReportId(reportId);
+
+    // convertir DTO
+    return expenses.stream()
+            .map(ExpenseMapper::toListDTO)
+            .toList();
+}
+
 
 
      // ============================
@@ -122,40 +168,40 @@ public class ExpenseService {
     // ===============================
     // 📄 GET MY EXPENSES (filters)
     // ===============================
-    public Page<ExpenseListDTO> getMyExpenses(
-            Long userId,
-            Double minAmount,
-            Double maxAmount,
-            LocalDate startDate,
-            LocalDate endDate,
-            PageRequest pageable
-    ) {
+   public Page<ExpenseListDTO> getMyExpenses(
+        String email,
+        Double minAmount,
+        Double maxAmount,
+        LocalDate startDate,
+        LocalDate endDate,
+        PageRequest pageable
+) {
 
-        return expenseRepository
-                .findByUserWithFilters(
-                        userId,
-                        minAmount,
-                        maxAmount,
-                        startDate,
-                        endDate,
-                        pageable
-                )
-                .map(expense -> new ExpenseListDTO(
-    expense.getId(),
-    expense.getTitle(),
-    expense.getAmount(),
-    expense.getDate(),
-    expense.getStatus(),   // ✅ ICI
-    new UserDTO(
-        expense.getUser().getId(),
-        expense.getUser().getName(),
-        expense.getUser().getEmail(),
-        expense.getUser().getRole(),
-        expense.getUser().isEnabled()
-    )
+    // 🔐 récupérer l'utilisateur depuis le token
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                    new ResourceNotFoundException("User not found with email " + email)
+            );
+
+    Long userId = user.getId();
+
+    return expenseRepository
+            .findByUserWithFilters(
+                    userId,
+                    minAmount,
+                    maxAmount,
+                    startDate,
+                    endDate,
+                    pageable
+            )
+          .map(expense -> new ExpenseListDTO(
+        expense.getId(),
+        expense.getTitle(),
+        expense.getAmount(),
+        expense.getDate(),
+        expense.getStatus()
 ));
 
+}
 
-               
-    }
 }

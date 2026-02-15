@@ -17,17 +17,15 @@ public class JwtUtil {
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     // 🔐 Génération du token
-    public String generateToken(String email, String role) {
-        return Jwts.builder()
-                .subject(email)
-                .claim("role", role) // EMPLOYEE / MANAGER / ADMIN
-                .issuedAt(new Date())
-                .expiration(
-                        new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)
-                )
-                .signWith(key)
-                .compact();
-    }
+  public String generateToken(String email, String role) {
+    return Jwts.builder()
+            .subject(email)
+            .claim("role", "ROLE_" + role) // 🔥 OBLIGATOIRE
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+            .signWith(key)
+            .compact();
+}
 
     // 📧 Email
     public String extractUsername(String token) {

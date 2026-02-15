@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
 @Table(name = "expenses")
 public class Expense {
@@ -32,14 +36,17 @@ public class Expense {
     private String managerComment;
 
     // 🔹 L’utilisateur qui a créé la dépense
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JsonIgnore
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "user_id", nullable = false)
+private User user;
 
     // 🔹 La note de frais (ExpenseReport) à laquelle appartient la dépense
-@ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "report_id")
-private ExpenseReport report;
+     @JsonBackReference
+     @ManyToOne(fetch = FetchType.LAZY)
+     @JoinColumn(name = "report_id")
+     private ExpenseReport report;
+
 
 
     // =========================

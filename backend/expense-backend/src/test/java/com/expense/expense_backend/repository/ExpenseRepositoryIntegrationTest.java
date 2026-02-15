@@ -18,6 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExpenseRepositoryIntegrationTest {
 
+   
+    @Autowired
+    private ExpenseReportRepository expenseReportRepository;
+
     @Autowired
     private ExpenseRepository expenseRepository;
 
@@ -28,8 +32,10 @@ class ExpenseRepositoryIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        expenseRepository.deleteAll();
-        userRepository.deleteAll();
+      expenseRepository.deleteAll();
+      expenseReportRepository.deleteAll();
+      userRepository.deleteAll();
+
 
         User user = new User("Mohamed", "mohamed@gmail.com", "secret");
         userId = userRepository.save(user).getId();

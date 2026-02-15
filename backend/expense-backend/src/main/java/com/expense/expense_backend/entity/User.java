@@ -1,12 +1,5 @@
 package com.expense.expense_backend.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 import jakarta.persistence.*;
 
 @Entity

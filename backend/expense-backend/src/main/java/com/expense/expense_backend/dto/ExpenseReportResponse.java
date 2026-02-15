@@ -8,6 +8,8 @@ public record ExpenseReportResponse(
         String reference,
         LocalDateTime createdAt,
         Long employeeId,
+        String status,
+        String employeeName,
         List<ExpenseResponse> items,
         LocalDateTime paidAt
 ) {}

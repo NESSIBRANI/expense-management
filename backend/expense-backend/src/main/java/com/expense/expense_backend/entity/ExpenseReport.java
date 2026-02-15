@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "expense_reports")
@@ -25,9 +28,10 @@ public class ExpenseReport {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     // Employé propriétaire de la note de frais
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    private User employee;
+    @JsonIgnore
+@ManyToOne(fetch = FetchType.LAZY, optional = false)
+@JoinColumn(name = "user_id")
+private User employee;
 
     // Commentaire du manager (optionnel)
     @Column(name = "manager_comment", length = 500)
@@ -36,13 +40,15 @@ public class ExpenseReport {
     private LocalDateTime paidAt;
 
     // Les lignes (items) — on va les ajouter après (ExpenseItem)
-   @OneToMany(
+    @JsonManagedReference
+    @OneToMany(
     mappedBy = "report",
     cascade = CascadeType.ALL,
     orphanRemoval = true,
     fetch = FetchType.LAZY
 )
-    private List<Expense> items = new ArrayList<>(); // TEMP: on garde Expense comme "item" pour l’instant
+    private List<Expense> items = new ArrayList<>();
+ // TEMP: on garde Expense comme "item" pour l’instant
 
     public ExpenseReport() {}
 

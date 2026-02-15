@@ -13,6 +13,18 @@ import java.util.List;
 import java.time.LocalDate;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
+@Query("""
+    SELECT DISTINCT e
+    FROM Expense e
+    JOIN FETCH e.user
+    WHERE e.report.id = :reportId
+""")
+List<Expense> findByReportId(@Param("reportId") Long reportId);
+
+
+
+
+
 @Query(
     value = """
         SELECT e FROM Expense e
