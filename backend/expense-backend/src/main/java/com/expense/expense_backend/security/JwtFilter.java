@@ -32,7 +32,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
         // ✅ on ignore uniquement login/register
-        return path.equals("/auth/login") || path.equals("/auth/register");
+       return path.contains("/api/auth/login") ||
+           path.contains("/api/auth/register");
     }
 
     @Override

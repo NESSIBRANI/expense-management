@@ -24,7 +24,23 @@ public class ExpenseMapper {
     }
 
     // ==========================
-    // REPORT → DTO
+    // EXPENSE → LIST DTO
+    // ==========================
+   public static ExpenseListDTO toListDTO(Expense e) {
+    return new ExpenseListDTO(
+            e.getId(),
+            e.getTitle(),
+            e.getAmount(),
+            e.getDate(),
+            e.getStatus()
+    );
+}
+
+
+
+
+    // ==========================
+    // REPORT → DTO ⭐⭐⭐
     // ==========================
     public static ExpenseReportResponse toReportResponse(ExpenseReport r) {
 
@@ -40,6 +56,8 @@ public class ExpenseMapper {
                 r.getReference(),
                 r.getCreatedAt(),
                 r.getEmployee().getId(),
+                r.getStatus().name(), // ⭐⭐ LA LIGNE QUI MANQUAIT
+                r.getEmployee().getName(),
                 items,
                 r.getPaidAt()
         );

@@ -9,33 +9,21 @@ public class ExpenseListDTO {
     private String title;
     private Double amount;
     private LocalDate date;
-    private ExpenseStatus status;   // ✅ AJOUTÉ
-    private UserDTO user;
+    private ExpenseStatus status;
 
     public ExpenseListDTO() {}
 
-    // ✅ CONSTRUCTEUR COMPLET
-    public ExpenseListDTO(
-            Long id,
-            String title,
-            Double amount,
-            LocalDate date,
-            ExpenseStatus status,
-            UserDTO user
-    ) {
+    public ExpenseListDTO(Long id, String title, Double amount, LocalDate date, ExpenseStatus status) {
         this.id = id;
         this.title = title;
         this.amount = amount;
         this.date = date;
         this.status = status;
-        this.user = user;
     }
 
-    // Getters
     public Long getId() { return id; }
     public String getTitle() { return title; }
     public Double getAmount() { return amount; }
     public LocalDate getDate() { return date; }
     public ExpenseStatus getStatus() { return status; }
-    public UserDTO getUser() { return user; }
 }
