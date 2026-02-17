@@ -1,23 +1,104 @@
-<div class="dashboard-container">
-  <h1>👤 Tableau de bord Employé</h1>
+<div class="dashboard">
 
-  <div class="cards">
-    <mat-card class="card" (click)="onAddExpense()">
-      <mat-icon>add_circle</mat-icon>
-      <h3>Ajouter une note</h3>
-      <p>Créer un rapport et ajouter une dépense</p>
-    </mat-card>
-
-    <mat-card class="card" (click)="goReports()">
-      <mat-icon>folder</mat-icon>
-      <h3>Mes rapports</h3>
-      <p>Voir / soumettre mes rapports</p>
-    </mat-card>
-
-    <mat-card class="card" (click)="goExpenses()">
-      <mat-icon>receipt_long</mat-icon>
-      <h3>Mes notes</h3>
-      <p>Consulter l’historique</p>
-    </mat-card>
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>Bienvenue {{ name }} 👋</h2>
+      <p class="subtitle">Tableau de bord de vos notes de frais</p>
+    </div>
   </div>
+
+  <div *ngIf="loading" style="text-align:center; margin-top:60px;">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+
+  <div *ngIf="!loading && error" class="error">{{ error }}</div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+
+    <!-- REPORTS -->
+    <mat-card class="kpi reports">
+      <div class="kpi-title">Reports</div>
+      <div class="kpi-value">{{ reportStats.total }}</div>
+
+      <div class="kpi-details">
+        <span class="draft">📝 {{ reportStats.draft }} Brouillons</span>
+        <span class="submitted">📤 {{ reportStats.submitted }} Soumis</span>
+        <span class="approved">✅ {{ reportStats.approved }} Approuvés</span>
+        <span class="rejected">❌ {{ reportStats.rejected }} Rejetés</span>
+      </div>
+
+      <button mat-stroked-button color="primary" (click)="goReports()">
+        Voir mes reports
+      </button>
+    </mat-card>
+
+    <!-- EXPENSES -->
+    <mat-card class="kpi expenses">
+      <div class="kpi-title">Dépenses</div>
+      <div class="kpi-value">{{ expenseStats.total }}</div>
+
+      <div class="kpi-details">
+        <span class="draft">📝 {{ expenseStats.draft }} Brouillon</span>
+        <span class="submitted">⏳ {{ expenseStats.submitted }} En attente</span>
+        <span class="approved">✅ {{ expenseStats.approved }} Approuvées</span>
+        <span class="rejected">❌ {{ expenseStats.rejected }} Rejetées</span>
+      </div>
+
+      <button mat-stroked-button color="primary" (click)="goExpenses()">
+        Voir mes dépenses
+      </button>
+    </mat-card>
+
+  </div>
+
+  <!-- LAST REPORTS -->
+  <mat-card class="recent">
+
+    <div class="recent-header">
+      <h3>Dernières notes de frais</h3>
+    </div>
+
+    <div *ngIf="reports.length === 0" class="empty">
+      Aucun report récent
+    </div>
+
+    <div *ngFor="let r of reports | slice:0:5" class="recent-item">
+
+      <div class="left">
+        <div class="ref">{{ r.reference }}</div>
+        <div class="date">
+          {{ r.createdAt | date:'dd/MM/yyyy':'UTC' }}
+        </div>
+      </div>
+
+      <div class="right">
+
+        <mat-chip-set>
+          <mat-chip
+            [ngClass]="{
+              'draft': r.status === 'DRAFT',
+              'submitted': r.status === 'SUBMITTED',
+              'approved': r.status === 'APPROVED',
+              'rejected': r.status === 'REJECTED'
+            }">
+
+            {{ statusLabel(r.status) }}
+
+          </mat-chip>
+        </mat-chip-set>
+
+        <button mat-icon-button color="primary"
+                (click)="goReportDetails(r.id)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+
+      </div>
+
+    </div>
+
+  </mat-card>
+
 </div>

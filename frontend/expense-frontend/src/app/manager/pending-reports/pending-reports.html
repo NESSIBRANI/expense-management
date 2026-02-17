@@ -1,0 +1,36 @@
+<h2>📄 Pending Expense Reports</h2>
+
+<table class="reports-table">
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Employee</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let report of reports">
+      <td>#{{ report.id }}</td>
+      <td>{{ report.employeeName || report.employee?.name || 'Employee' }}</td>
+
+      <!-- ✅ Ne force pas “PENDING” -->
+      <td>
+        <span class="badge pending">{{ report.status }}</span>
+      </td>
+
+      <td class="actions">
+        <!-- ✅ Open -->
+        <button mat-stroked-button color="primary" (click)="open(report.id)">
+          Open
+        </button>
+
+     
+
+       
+      </td>
+    </tr>
+  </tbody>
+</table>
+

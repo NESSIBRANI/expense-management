@@ -1,0 +1,116 @@
+/* PAGE TITLE */
+h2{
+  margin-bottom:20px;
+  font-weight:600;
+  color:#1e293b;
+}
+
+/* TABLE CONTAINER */
+.reports-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.reports-table thead{
+  background:#f1f5f9;
+}
+
+.reports-table th{
+  text-align:left;
+  padding:16px 18px;
+  font-size:14px;
+  color:#475569;
+  font-weight:600;
+  border-bottom:1px solid #e2e8f0;
+}
+
+/* ROWS */
+.reports-table td{
+  padding:16px 18px;
+  font-size:14px;
+  color:#1f2937;
+  border-bottom:1px solid #f1f5f9;
+}
+
+/* HOVER EFFECT */
+.reports-table tbody tr{
+  transition:all 0.2s ease;
+}
+
+.reports-table tbody tr:hover{
+  background:#f8fafc;
+  transform:scale(1.005);
+}
+
+/* BADGE STATUS */
+.badge{
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  display:inline-block;
+}
+
+/* PENDING */
+.pending{
+  background:#fff7ed;
+  color:#ea580c;
+}
+
+/* APPROVED */
+.approved{
+  background:#ecfdf5;
+  color:#16a34a;
+}
+
+/* REJECTED */
+.rejected{
+  background:#fef2f2;
+  color:#dc2626;
+}
+
+/* ACTION BUTTONS */
+.actions{
+  display:flex;
+  gap:10px;
+}
+
+/* APPROVE BUTTON */
+.actions button[color="primary"]{
+  background:#2563eb;
+  color:white;
+  border-radius:10px;
+  padding:6px 14px;
+  box-shadow:0 4px 10px rgba(37,99,235,0.3);
+  transition:0.2s;
+}
+
+.actions button[color="primary"]:hover{
+  background:#1d4ed8;
+  transform:translateY(-2px);
+}
+
+/* REJECT BUTTON */
+.actions button[color="warn"]{
+  border-radius:10px;
+  padding:6px 14px;
+  box-shadow:0 4px 10px rgba(239,68,68,0.3);
+}
+
+.actions button[color="warn"]:hover{
+  transform:translateY(-2px);
+}
+
+/* EMPTY STATE */
+.empty{
+  text-align:center;
+  padding:40px;
+  color:#64748b;
+  font-size:15px;
+}

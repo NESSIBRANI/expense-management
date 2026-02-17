@@ -1,38 +1,63 @@
-<div class="container">
+<div class="reports-page">
 
+  <!-- HEADER -->
   <div class="header">
-    <h1>📁 Mes rapports</h1>
+    <div>
+      <h2>Mes notes de frais</h2>
+      <p class="subtitle">Créez, consultez et suivez vos reports</p>
+    </div>
 
     <button mat-raised-button color="primary" (click)="createReport()">
-      ➕ Nouveau rapport
+      <mat-icon>add</mat-icon>
+      Nouveau report
     </button>
   </div>
 
+  <!-- LOADING -->
   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
-  <mat-card *ngFor="let report of reports" class="report-card">
+  <!-- EMPTY -->
+  <div class="empty" *ngIf="!loading && reports.length === 0">
+    <mat-icon>receipt_long</mat-icon>
+    <div>Aucune note de frais</div>
+  </div>
 
-    <div class="report-header">
-      <div>
-        <strong>Référence :</strong> {{ report.reference }} <br>
-        <small>{{ report.createdAt | date:'dd/MM/yyyy' }}</small>
+  <!-- LIST -->
+  <div class="reports-list" *ngIf="!loading && reports.length > 0">
+
+    <mat-card class="report-card" *ngFor="let report of reports">
+
+      <div class="card-header">
+        <div>
+          <div class="reference">Report #{{ report.id }}</div>
+          <div class="date">{{ report.createdAt | date:'dd/MM/yyyy' }}</div>
+        </div>
+
+        <!-- STATUS CHIP -->
+        <mat-chip class="status-chip"
+                  [ngClass]="report.status.toLowerCase()"
+>
+          {{ statusLabel(report.status) }}
+        </mat-chip>
       </div>
 
-      <mat-chip color="primary" selected>
-        {{ report.status || 'DRAFT' }}
-      </mat-chip>
-    </div>
+      <!-- ACTIONS -->
+      <div class="card-actions">
+        <button mat-raised-button color="primary"
+                (click)="goToDetails(report.id)">
+          Voir les dépenses
+        </button>
 
-    <div class="actions" *ngIf="report.status === 'DRAFT'">
-      <button mat-stroked-button color="primary" [routerLink]="['/employee/add-expense', report.id]">
-        ➕ Ajouter dépense
-      </button>
+        <!-- 🗑️ DELETE ONLY IF DRAFT -->
+        <button mat-raised-button color="warn"
+                *ngIf="report.status === 'DRAFT'"
+                (click)="deleteReport(report.id)">
+          <mat-icon>delete</mat-icon>
+          Supprimer
+        </button>
+      </div>
 
-      <button mat-raised-button color="accent" (click)="submitReport(report.id)" style="margin-left: 10px;">
-        📤 Soumettre
-      </button>
-    </div>
+    </mat-card>
 
-  </mat-card>
-
+  </div>
 </div>

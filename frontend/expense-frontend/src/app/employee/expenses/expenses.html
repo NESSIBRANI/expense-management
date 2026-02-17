@@ -1,27 +1,120 @@
-<mat-card>
-  <h2>📋 Mes notes de frais</h2>
+<div class="expenses-page">
 
-  <table mat-table [dataSource]="dataSource" class="full">
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>Mes Dépenses</h2>
+      <p class="subtitle">
+        Toutes vos dépenses enregistrées dans vos notes de frais
+      </p>
+    </div>
+  </div>
 
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let e">{{ e.title }}</td>
-    </ng-container>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef>Montant</th>
-      <td mat-cell *matCellDef="let e">{{ e.amount }} MRU</td>
-    </ng-container>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Statut</th>
-      <td mat-cell *matCellDef="let e">
-        <span class="badge {{ e.status }}">{{ e.status }}</span>
-      </td>
-    </ng-container>
+  <!-- FILTER -->
+  <div class="filters" *ngIf="!loading">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrer par statut</mat-label>
+      <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilter()">
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <mat-option value="ALL">Tous</mat-option>
+        <mat-option value="DRAFT">Brouillon</mat-option>
+        <mat-option value="SUBMITTED">Soumise</mat-option>
+        <mat-option value="APPROVED">Approuvée</mat-option>
+        <mat-option value="REJECTED">Rejetée</mat-option>
 
-  </table>
-</mat-card>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- TABLE CARD -->
+  <mat-card class="table-card" *ngIf="!loading">
+
+    <table mat-table [dataSource]="dataSource" class="expenses-table">
+
+      <!-- TITLE -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Titre</th>
+        <td mat-cell *matCellDef="let e">
+          <div class="title">{{ e.title }}</div>
+        </td>
+      </ng-container>
+
+      <!-- AMOUNT -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Montant</th>
+        <td mat-cell *matCellDef="let e">
+          <span class="amount">{{ e.amount | number:'1.0-0' }} UM</span>
+        </td>
+      </ng-container>
+
+      <!-- DATE -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let e">
+  {{ e.date ? (e.date | date:'dd/MM/yyyy') : '-' }}
+</td>
+
+      </ng-container>
+
+      <!-- STATUS -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Statut</th>
+    <td mat-cell *matCellDef="let e">
+  <mat-chip [color]="statusColor(e.reportStatus)"
+ selected>
+    {{ statusLabel(e.reportStatus) }}
+
+  </mat-chip>
+</td>
+
+      </ng-container>
+
+      <!-- REPORT -->
+      <ng-container matColumnDef="report">
+        <th mat-header-cell *matHeaderCellDef>Report</th>
+        <td mat-cell *matCellDef="let e">
+  <button mat-button color="primary"
+          *ngIf="e.reportId"
+          (click)="goToReport(e)">
+    Voir
+  </button>
+  <span *ngIf="!e.reportId">—</span>
+</td>
+
+      </ng-container>
+
+      <!-- ACTIONS -->
+      <!-- ACTIONS -->
+<ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef></th>
+  <td mat-cell *matCellDef="let e">
+
+    <button
+      mat-icon-button
+      color="primary"
+      *ngIf="e.reportId"
+      (click)="goToReport(e)">
+      <mat-icon>visibility</mat-icon>
+    </button>
+
+  </td>
+</ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+  </mat-card>
+
+  <div *ngIf="!loading && dataSource.data.length === 0" class="empty">
+    <mat-icon>receipt_long</mat-icon>
+    <p>Aucune dépense trouvée</p>
+  </div>
+
+</div>

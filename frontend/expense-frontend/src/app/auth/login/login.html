@@ -41,8 +41,19 @@
           {{ loading ? 'Signing in...' : 'Sign In' }}
         </button>
 
-        <!-- MESSAGE -->
-        <p class="error" *ngIf="message">{{ message }}</p>
+        
+
+       <!-- MESSAGE -->
+<p class="error" *ngIf="message">{{ message }}</p>
+
+<!-- SIGNUP AREA -->
+<div class="auth-footer">
+  Pas encore de compte ?
+  <a routerLink="/register">Créer un compte</a>
+</div>
+
+
+
 
       </form>
     </mat-card-content>

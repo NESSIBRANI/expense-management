@@ -1,0 +1,138 @@
+<div class="container">
+
+ 
+  <!-- BACK BUTTON -->
+ <div class="page-nav">
+
+  <div class="breadcrumb">
+    <span class="link" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Mes Reports
+    </span>
+
+    <span class="separator">/</span>
+
+    <span class="current">
+      Report #{{ report?.id }}
+    </span>
+  </div>
+
+</div>
+
+
+
+  <!-- ================= REPORT HEADER ================= -->
+  <mat-card class="header-card" *ngIf="report as r">
+
+    <h2>Report #{{ r.id }}</h2>
+
+    <p>
+      <strong>Statut :</strong>
+      <span class="status" [ngClass]="r.status.toLowerCase()">
+        {{ r.status }}
+      </span>
+    </p>
+
+
+
+    <!-- ACTIONS -->
+    <div class="actions" *ngIf="r.status === 'DRAFT'">
+
+      <button mat-raised-button color="primary" (click)="toggleForm()">
+        <mat-icon>add</mat-icon>
+        Ajouter une dépense
+      </button>
+
+      <button mat-raised-button color="accent" (click)="submitReport()">
+        <mat-icon>send</mat-icon>
+        Soumettre au manager
+      </button>
+
+    </div>
+
+  </mat-card>
+
+  <mat-divider *ngIf="report"></mat-divider>
+
+  <!-- ================= ADD EXPENSE FORM ================= -->
+  <mat-card class="add-card" *ngIf="showForm && report">
+
+    <h2>Nouvelle dépense</h2>
+
+    <form (ngSubmit)="addExpense()">
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Titre</mat-label>
+        <input matInput [(ngModel)]="description" name="description" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Montant</mat-label>
+        <input matInput type="number" [(ngModel)]="amount" name="amount" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="expenseDate" name="date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="form-buttons">
+        <button mat-raised-button color="primary" type="submit">
+          Ajouter
+        </button>
+
+        <button mat-button color="warn" type="button" (click)="toggleForm()">
+          Annuler
+        </button>
+      </div>
+
+    </form>
+
+  </mat-card>
+
+  <!-- ================= EXPENSE LIST ================= -->
+  <div class="expense-list">
+
+  <mat-card class="expense-card" *ngFor="let exp of expenses">
+
+    <!-- LEFT SIDE -->
+    <div class="expense-left">
+
+      <div class="expense-icon">
+        <mat-icon>payments</mat-icon>
+      </div>
+
+      <div class="expense-info">
+        <div class="expense-title">
+          {{ exp.title }}
+        </div>
+
+        <div class="expense-date">
+          {{ exp.date | date:'dd MMMM yyyy' }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="expense-right">
+
+      <div class="expense-amount">
+        {{ exp.amount }} UM
+      </div>
+
+     <button
+  mat-icon-button
+  *ngIf="report?.status === 'DRAFT'"
+  (click)="deleteExpense(exp.id)">
+
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </div>
+
+  </mat-card>
+
+</div>

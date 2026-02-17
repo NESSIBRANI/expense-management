@@ -1,0 +1,49 @@
+<div class="reject-dialog">
+
+  <div class="header">
+    <div class="title">
+      <mat-icon class="warn">report_problem</mat-icon>
+      <div>
+        <h2>Rejeter la note de frais</h2>
+        <p>Ajoute une raison claire. Elle sera visible par l’employé.</p>
+      </div>
+    </div>
+
+    <button class="x-btn" type="button" (click)="cancel()" aria-label="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Raison du rejet</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="reason"
+      rows="5"
+      placeholder="Ex: justificatif manquant, montant incorrect, date invalide..."
+    ></textarea>
+    <mat-hint align="end">{{ reason.length }}/300</mat-hint>
+<mat-error *ngIf="!reason.trim()">
+  La raison du rejet est obligatoire
+</mat-error>
+
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="cancel()">
+      Annuler
+    </button>
+
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="confirm()"
+      [disabled]="reason.trim().length < 5"
+
+    >
+      Rejeter
+    </button>
+  </div>
+
+</div>

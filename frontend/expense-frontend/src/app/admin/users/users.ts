@@ -11,7 +11,8 @@ import { User } from '../models/user.model';
   templateUrl: './users.html',
   styleUrls: ['./users.css']
 })
-export class Users implements OnInit {
+export class UsersComponent implements OnInit {
+
 
   users: User[] = [];
   loading = true;

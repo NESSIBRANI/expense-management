@@ -1,42 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Expense } from '../models/expense.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface CreateExpenseRequest {
+  title: string;
+  amount: number;
+  date: string; // yyyy-MM-dd
+}
+
+@Injectable({ providedIn: 'root' })
 export class ExpenseService {
 
-  private apiUrl = 'http://localhost:8081/api/expenses';
+  private apiUrl = `${environment.apiUrl}/expenses`;
+  private reportsApiUrl = `${environment.apiUrl}/reports`;
 
   constructor(private http: HttpClient) {}
 
-  // =========================
-  // EMPLOYEE
-  // =========================
-  getMyExpenses(page = 0, size = 5): Observable<any> {
-    const userId = localStorage.getItem('userId');
-    return this.http.get<any>(`${this.apiUrl}/my`, {
-      params: { userId: userId!, page, size }
-    });
+   /* ================= EMPLOYEE ================= */
+
+  // 🔹 Mes dépenses
+  getMyExpenses(page: number = 0, size: number = 20): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/my?page=${page}&size=${size}`);
   }
 
-  createExpense(reportId: number, expense: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/report/${reportId}`, expense);
+  
+
+
+  // 🔹 Ajouter une dépense
+  addExpenseToReport(reportId: number, expense: CreateExpenseRequest): Observable<any> {
+    return this.http.post<any>(
+      `${this.reportsApiUrl}/${reportId}/expenses`,
+      expense
+    ).pipe(
+      // Backward-compatible fallback for backend versions exposing /api/expenses/report/{reportId}
+      catchError(() => this.http.post<any>(`${this.apiUrl}/report/${reportId}`, expense))
+    );
   }
 
-  // =========================
-  // MANAGER
-  // =========================
-  getAllExpenses(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/all`);
+  // 🔹 MODIFIER UNE DÉPENSE
+  updateExpense(expenseId: number, expense: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.apiUrl}/${expenseId}`,
+      expense
+    );
   }
 
-  approveExpense(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/approve`, {});
+  // 🔹 SUPPRIMER UNE DÉPENSE  ←←← LA FONCTION MANQUANTE !!!
+  deleteExpense(expenseId: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this.apiUrl}/${expenseId}`
+    );
   }
 
-  rejectExpense(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/reject`, {});
-  }
+
+
 }
