@@ -1,0 +1,73 @@
+<h2 class="page-title">📊 Manager Dashboard</h2>
+
+<div class="cards">
+
+  <div class="card blue">
+  <h4>Total Reports</h4>
+  <p>{{ totalCount }}</p>
+
+  </div>
+
+
+<div class="card orange clickable" (click)="goToPending()">
+  <h4>Pending</h4>
+  <p>{{ pendingCount }}</p>
+</div>
+
+
+
+  <div class="card green">
+    <h4>Approved</h4>
+    <p>{{ approvedCount }}</p>
+  </div>
+
+  <div class="card red">
+    <h4>Rejected</h4>
+    <p>{{ rejectedCount }}</p>
+  </div>
+
+</div>
+
+<mat-card class="table-card">
+
+  <h3>📄 Pending Expense Reports</h3>
+
+  <div *ngIf="reports.length===0" class="empty">
+    No pending reports found
+  </div>
+
+  <table *ngIf="reports.length>0" class="reports-table">
+
+    <thead>
+      <tr>
+        <th>Reference</th>
+        <th>Employee</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let report of reports" class="clickable">
+
+
+        <td>#{{ report.id }}</td>
+        <td>{{ report.employeeName }}</td>
+        <td><span class="badge pending">Pending</span></td>
+  <td class="actions">
+ <button mat-raised-button color="primary"
+        (click)="goToPending(); $event.stopPropagation()">
+  View Pending
+</button>
+
+
+</td>
+
+        
+      </tr>
+    </tbody>
+
+  </table>
+
+</mat-card>
+     

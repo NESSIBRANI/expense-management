@@ -1,0 +1,170 @@
+/* ===== GLOBAL ===== */
+:host{
+  display:block;
+  height:100vh;
+  font-family: 'Inter', sans-serif;
+  background:#f4f6f9;
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  height:64px;
+
+  background:#ffffff !important;
+  border-bottom:1px solid #e6e8ec;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+
+.app-title{
+  font-size:18px;
+  font-weight:700;
+  margin-left:12px;
+  color:#2c3e50;
+}
+
+.spacer{
+  flex:1;
+}
+
+/* profile */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:2px solid #eaecef;
+}
+
+.username{
+  font-weight:600;
+  color:#2c3e50;
+}
+
+.logout-btn{
+  border-radius:20px;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:250px;
+  background:linear-gradient(180deg,#1f2937,#111827) !important;
+  color:white;
+  padding-top:10px;
+  box-shadow:4px 0 20px rgba(0,0,0,0.2);
+}
+
+/* logo */
+.logo{
+  font-size:20px;
+  font-weight:700;
+  padding:20px;
+  margin-bottom:10px;
+  color:#f9fafb;
+}
+
+/* menu items */
+.mat-nav-list a{
+  color:#d1d5db !important;
+  border-radius:12px;
+  margin:6px 12px;
+  padding:12px 14px;
+  transition:all 0.25s ease;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.mat-nav-list a mat-icon{
+  color:#9ca3af;
+}
+
+/* hover */
+.mat-nav-list a:hover{
+  background:#374151 !important;
+  color:#fff !important;
+  transform:translateX(5px);
+}
+
+.mat-nav-list a:hover mat-icon{
+  color:#fff !important;
+}
+
+/* active page */
+.active{
+  background:#6366f1 !important;
+  color:white !important;
+  box-shadow:0 8px 22px rgba(99,102,241,0.4);
+}
+
+.active mat-icon{
+  color:white !important;
+}
+
+/* ===== CONTENT ===== */
+.layout-container{
+  height:calc(100vh - 64px);
+}
+
+.page-content{
+  background:#f4f6f9 !important;
+}
+
+.content-wrapper{
+  padding:30px;
+}
+
+/* remove material grey */
+mat-sidenav-container,
+mat-sidenav-content{
+  background:#f4f6f9 !important;
+}
+
+/* ===== MATERIAL SIDEBAR FIX (IMPORTANT) ===== */
+
+/* texte du menu */
+::ng-deep .sidebar .mdc-list-item__primary-text{
+  color:#e5e7eb !important;
+  font-weight:500;
+}
+
+/* icones */
+::ng-deep .sidebar .mat-icon{
+  color:#9ca3af !important;
+}
+
+/* hover */
+::ng-deep .sidebar .mat-mdc-list-item:hover{
+  background:#374151 !important;
+}
+
+::ng-deep .sidebar .mat-mdc-list-item:hover .mdc-list-item__primary-text{
+  color:#ffffff !important;
+}
+
+::ng-deep .sidebar .mat-mdc-list-item:hover .mat-icon{
+  color:#ffffff !important;
+}
+
+/* page active */
+::ng-deep .sidebar .active{
+  background:linear-gradient(135deg,#6366f1,#4f46e5) !important;
+  box-shadow:0 12px 28px rgba(99,102,241,.45);
+}
+
+::ng-deep .sidebar .active .mdc-list-item__primary-text{
+  color:#ffffff !important;
+  font-weight:600;
+}
+
+::ng-deep .sidebar .active .mat-icon{
+  color:#ffffff !important;
+}
+

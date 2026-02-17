@@ -1,0 +1,139 @@
+.layout-container{
+  height:100vh;
+}
+
+
+.title{
+  margin-left:10px;
+  font-weight:600;
+  font-size:18px;
+  color:#0f172a;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:260px;
+  background:linear-gradient(180deg,#0f172a,#020617);
+  color:white;
+  border-right:none;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:700;
+  padding:22px;
+  color:#60a5fa;
+}
+
+/* menu */
+.mat-nav-list a{
+  color:#cbd5e1 !important;
+  margin:6px 12px;
+  border-radius:12px;
+  transition:0.25s;
+}
+
+.mat-nav-list a:hover{
+  background:#1e293b !important;
+  color:white !important;
+}
+
+.active{
+  background:#2563eb !important;
+  color:white !important;
+  box-shadow:0 8px 18px rgba(37,99,235,.35);
+}
+
+/* ===== TOOLBAR ===== */
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  border-bottom:1px solid #e2e8f0;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+}
+
+/* pousse tout à droite */
+.spacer{
+  flex:1 1 auto;
+}
+
+/* profil */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* avatar rond */
+.avatar{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#2563eb;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:16px;
+}
+
+/* bouton logout */
+.profile button{
+  margin-left:10px;
+  border-radius:18px;
+  padding:6px 16px;
+  font-weight:600;
+}
+
+
+/* CONTENT */
+.page{
+  padding:28px;
+  background:#f4f7fb;
+  min-height:calc(100vh - 64px);
+}
+
+/* ================= SIDEBAR MATERIAL FIX ================= */
+
+/* IMPORTANT : Angular Material override */
+:host ::ng-deep .sidebar .mdc-list-item__primary-text{
+  color:#e2e8f0 !important;
+  font-weight:500;
+  letter-spacing:.3px;
+}
+
+:host ::ng-deep .sidebar mat-icon{
+  color:#93c5fd !important;
+}
+
+:host ::ng-deep .sidebar .mat-mdc-list-item:hover{
+  background:#1e293b !important;
+}
+
+:host ::ng-deep .sidebar .mat-mdc-list-item:hover .mdc-list-item__primary-text{
+  color:white !important;
+}
+
+:host ::ng-deep .sidebar .mat-mdc-list-item:hover mat-icon{
+  color:white !important;
+}
+
+:host ::ng-deep .sidebar .active{
+  background:linear-gradient(135deg,#2563eb,#1d4ed8) !important;
+  box-shadow:0 10px 24px rgba(37,99,235,.45);
+}
+
+:host ::ng-deep .sidebar .active .mdc-list-item__primary-text{
+  color:white !important;
+  font-weight:600;
+}
+
+:host ::ng-deep .sidebar .active mat-icon{
+  color:white !important;
+}

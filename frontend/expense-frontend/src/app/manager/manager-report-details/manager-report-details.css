@@ -1,0 +1,174 @@
+/* ================= PAGE ================= */
+
+.page {
+  padding: 28px;
+  max-width: 1050px;
+  margin: auto;
+}
+
+
+/* ================= BACK BUTTON ================= */
+
+.back-btn {
+  margin-bottom: 18px;
+  border-radius: 12px !important;
+  font-weight: 600;
+  padding: 8px 18px !important;
+}
+
+
+/* ================= HEADER CARD ================= */
+
+.header-card {
+  border-radius: 18px !important;
+  padding: 28px !important;
+
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: white;
+
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}
+
+.header-card h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+
+/* ================= STATUS BADGE ================= */
+
+.status {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.status.DRAFT {
+  background: #facc15;
+  color: #000;
+}
+
+.status.SUBMITTED {
+  background: #60a5fa;
+  color: white;
+}
+
+.status.APPROVED {
+  background: #22c55e;
+  color: white;
+}
+
+.status.REJECTED {
+  background: #ef4444;
+  color: white;
+}
+
+.status.PAID {
+  background: #10b981;
+  color: white;
+}
+
+
+/* ================= ACTION BUTTONS ================= */
+
+.actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 14px;
+}
+
+.actions button {
+  border-radius: 14px !important;
+  padding: 10px 22px !important;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .3px;
+}
+
+
+/* Approve */
+.approve-btn {
+  background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+  color: white !important;
+  box-shadow: 0 6px 16px rgba(34,197,94,0.35);
+}
+
+/* Reject */
+.reject-btn {
+  background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+  color: white !important;
+  box-shadow: 0 6px 16px rgba(239,68,68,0.35);
+}
+
+
+/* ================= EXPENSE LIST ================= */
+
+.expense-list {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+/* Each expense */
+.expense-card {
+  border-radius: 16px !important;
+  padding: 18px !important;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+
+/* LEFT SIDE */
+.expense-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.expense-date {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+
+/* RIGHT SIDE */
+.amount {
+  font-size: 18px;
+  font-weight: 700;
+  background: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: #0f172a;
+}
+
+
+/* ================= LOADING ================= */
+
+.loading {
+  margin-top: 40px;
+  text-align: center;
+}

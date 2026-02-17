@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { MaterialModule } from '../../material.module';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +17,12 @@ import { MaterialModule } from '../../material.module';
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule   // ✅ BIEN ICI
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    RouterModule, 
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
@@ -23,51 +34,52 @@ export class LoginComponent {
   message = '';
   loading = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-onLogin() {
-  this.loading = true;
-  this.message = '';
+  onLogin(): void {
 
-  this.authService.login({
-    email: this.email,
-    password: this.password
-  }).subscribe({
-    next: (res) => {
-
-      // 🔐 Stocker le token
-      localStorage.setItem('token', res.token);
-
-      // 🔎 Décoder le JWT
-      const payload = JSON.parse(atob(res.token.split('.')[1]));
-
-      // ✅ STOCKER LES INFOS IMPORTANTES
-      localStorage.setItem('role', payload.role);
-      localStorage.setItem('userId', payload.userId); // ✅ IMPORTANT
-
-      // 🔀 Redirection
-      this.redirectByRole(payload.role);
-    },
-    error: () => {
-      this.message = '❌ Login échoué';
-      this.loading = false;
+    if (!this.email || !this.password) {
+      this.message = 'Veuillez remplir tous les champs';
+      return;
     }
-  });
+
+    this.loading = true;
+    this.message = '';
+
+    // ⭐ IMPORTANT : login inclut déjà loadUser
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+
+        const role = this.authService.getRole();
+        if (!role) {
+          this.router.navigate(['/login']);
+         return;
 }
 
+this.redirectByRole(role);
 
-  private redirectByRole(role: string) {
-    this.loading = false;
-
-    if (role === 'EMPLOYEE') {
-      this.router.navigate(['/employee']);
-    } else if (role === 'MANAGER') {
-      this.router.navigate(['/manager']);
-    } else {
-      this.router.navigate(['/unauthorized']);
-    }
+      },
+      error: () => {
+        this.message = 'Email ou mot de passe incorrect';
+        this.loading = false;
+      }
+    });
   }
+
+ redirectByRole(role: string) {
+
+  if (role === 'ADMIN') {
+    this.router.navigate(['/admin']);
+  }
+
+  else if (role === 'MANAGER') {
+    this.router.navigate(['/manager']);
+  }
+
+  else {
+    this.router.navigate(['/employee']);
+  }
+}
+
 }

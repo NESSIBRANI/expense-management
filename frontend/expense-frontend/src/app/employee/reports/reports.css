@@ -1,0 +1,89 @@
+.reports-page{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+/* header */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.subtitle{
+  color:#6b7280;
+  margin-top:4px;
+}
+
+/* empty */
+.empty{
+  text-align:center;
+  padding:50px;
+  color:#6b7280;
+}
+
+.empty mat-icon{
+  font-size:60px;
+  width:60px;
+  height:60px;
+  margin-bottom:10px;
+  color:#9ca3af;
+}
+
+/* cards grid */
+.reports-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:20px;
+}
+
+.report-card{
+  border-radius:16px;
+  padding:20px;
+  transition:0.25s;
+}
+
+.report-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.reference{
+  font-weight:700;
+  font-size:18px;
+}
+
+.date{
+  font-size:13px;
+  color:#6b7280;
+  margin-top:4px;
+}
+
+/* status */
+.status-chip{
+  font-weight:600;
+}
+
+/* couleurs par status */
+.status-chip.draft{ background:#ffe082; }
+.status-chip.submitted{ background:#64b5f6; color:white;}
+.status-chip.approved{ background:#81c784; color:white;}
+.status-chip.rejected{ background:#e57373; color:white;}
+.status-chip.paid{ background:#06b6d4; color:white;}
+
+/* actions */
+.card-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+  flex-wrap:wrap;
+}

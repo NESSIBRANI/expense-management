@@ -1,0 +1,69 @@
+.reject-dialog {
+  width: 520px;
+  max-width: calc(100vw - 32px);
+  padding: 18px 18px 14px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.title {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.title p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.warn {
+  margin-top: 2px;
+  color: #ef4444;
+}
+
+.x-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 6px;
+  line-height: 0;
+}
+
+.x-btn:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.full {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+  max-height: 240px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}

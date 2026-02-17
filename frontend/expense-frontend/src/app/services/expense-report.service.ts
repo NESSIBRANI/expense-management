@@ -2,24 +2,60 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { ExpenseReport } from '../models/expense-report.model';
+import { map } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class ExpenseReportService {
-  private api = `${environment.apiUrl}/reports`;
+
+  private apiUrl = `${environment.apiUrl}/reports`;
 
   constructor(private http: HttpClient) {}
 
-  getMyReports(userId: number, page = 0, size = 5): Observable<any> {
-    return this.http.get<any>(`${this.api}/my`, {
-      params: { userId, page, size }
-    });
+  /* =========================
+     📄 GET MY REPORTS
+     ========================= */
+  getMyReports(page: number = 0, size: number = 20)
+    : Observable<{ content: ExpenseReport[] }> {
+
+    return this.http.get<{ content: ExpenseReport[] }>(
+      `${this.apiUrl}/my?page=${page}&size=${size}`
+    );
   }
 
-  createReport(userId: number): Observable<any> {
-    return this.http.post<any>(`${this.api}`, {}, { params: { userId } });
+  /* =========================
+     ➕ CREATE REPORT
+     ========================= */
+  createReport(): Observable<ExpenseReport> {
+    return this.http.post<ExpenseReport>(this.apiUrl, {});
   }
+/* =========================
+   📤 SUBMIT REPORT
+   ========================= */
+submitReport(reportId: number): Observable<ExpenseReport> {
+  return this.http.put<ExpenseReport>(
+    `${this.apiUrl}/${reportId}/submit`,
+    {}
+  );
+}
 
-  submitReport(reportId: number): Observable<any> {
-    return this.http.put<any>(`${this.api}/${reportId}/submit`, {});
-  }
+
+/* =========================
+   🔍 GET ONE REPORT BY ID
+   ========================= */
+
+getMyReport(reportId: number): Observable<ExpenseReport> {
+  return this.http.get<ExpenseReport>(`${this.apiUrl}/my/${reportId}`);
+}
+
+deleteReport(id:number){
+  return this.http.delete(`${this.apiUrl}/${id}`);
+}
+
+
+
+
+
 }

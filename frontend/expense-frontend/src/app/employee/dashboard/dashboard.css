@@ -1,22 +1,189 @@
-.dashboard-container {
-  padding: 40px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin-top: 30px;
-}
-
-.card {
-  text-align: center;
+/* ===== PAGE BACKGROUND ===== */
+.dashboard{
   padding: 30px;
-  cursor: pointer;
-  transition: 0.3s;
+  min-height: 100vh;
+  background: linear-gradient(120deg,#eef2f7,#f6f9fc);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+/* ===== HEADER ===== */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.header h2{
+  margin:0;
+  font-size:26px;
+  font-weight:600;
+  color:#2c3e50;
+}
+
+.subtitle{
+  margin-top:5px;
+  color:#7f8c8d;
+  font-size:14px;
+}
+
+/* ===== KPI GRID ===== */
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:25px;
+  margin-bottom:35px;
+}
+
+/* ===== KPI CARD ===== */
+.kpi{
+  padding:22px;
+  border-radius:18px;
+  transition:0.25s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.kpi:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 35px rgba(0,0,0,0.12);
+}
+
+/* gradient stripes */
+.kpi::before{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:100%;
+  left:0;
+  top:0;
+}
+
+/* REPORTS COLOR */
+.kpi.reports::before{
+  background:#3f51b5;
+}
+
+/* EXPENSES COLOR */
+.kpi.expenses::before{
+  background:#00b894;
+}
+
+/* TITLE */
+.kpi-title{
+  font-size:14px;
+  font-weight:600;
+  color:#6c757d;
+}
+
+/* VALUE */
+.kpi-value{
+  font-size:42px;
+  font-weight:700;
+  margin:10px 0 12px 0;
+  color:#2c3e50;
+}
+
+/* DETAILS */
+.kpi-details{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+/* BADGES COLORS */
+.kpi-details .draft{ color:#f39c12; }
+.kpi-details .submitted{ color:#2980b9; }
+.kpi-details .approved{ color:#27ae60; }
+.kpi-details .rejected{ color:#e74c3c; }
+
+/* BUTTON */
+.kpi button{
+  margin-top:8px;
+  border-radius:25px;
+  font-weight:600;
+}
+
+/* ===== RECENT REPORTS ===== */
+.recent{
+  padding:22px;
+  border-radius:18px;
+}
+
+/* HEADER */
+.recent-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.recent h3{
+  margin:0;
+  font-weight:600;
+  color:#2c3e50;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#95a5a6;
+  font-style:italic;
+}
+
+/* ITEM */
+.recent-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 12px;
+  border-bottom:1px solid #edf1f7;
+  transition:0.2s;
+}
+
+.recent-item:hover{
+  background:#f8fafc;
+  border-radius:12px;
+}
+
+/* LEFT SIDE */
+.left .ref{
+  font-weight:600;
+  color:#34495e;
+}
+
+.left .date{
+  font-size:13px;
+  color:#95a5a6;
+}
+
+/* RIGHT SIDE */
+.right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* ===== STATUS CHIPS ===== */
+mat-chip{
+  font-weight:600;
+  color:white !important;
+}
+
+/* STATUS COLORS */
+mat-chip.draft{ background:#f39c12 !important; }
+mat-chip.submitted{ background:#3498db !important; }
+mat-chip.approved{ background:#2ecc71 !important; }
+mat-chip.rejected{ background:#e74c3c !important; }
+
+/* ERROR */
+.error{
+  margin-bottom:20px;
+  padding:12px;
+  background:#ffecec;
+  border-left:5px solid #e74c3c;
+  color:#c0392b;
+  border-radius:8px;
 }
