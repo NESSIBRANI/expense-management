@@ -68,9 +68,10 @@ public ExpenseReportResponse getMyReport(
         @PathVariable Long id,
         Authentication authentication) {
 
-    return ExpenseMapper.toReportResponse(
-            reportService.getMyReport(id, authentication.getName())
-    );
+   return ExpenseMapper.toReportResponse(
+        reportService.getMyReport(id, authentication.getName())
+);
+
 }
 
  /// ➕ Ajouter une dépense à une note de frais

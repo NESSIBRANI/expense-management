@@ -71,7 +71,7 @@ public ExpenseResponse createExpense(Long reportId, ExpenseRequest request) {
     expense.setUser(user);
 
     // ⭐⭐⭐ LA LIGNE LA PLUS IMPORTANTE
-    report.addExpense(expense);
+    
 
     report.addExpense(expense);
 expenseReportRepository.save(report);
