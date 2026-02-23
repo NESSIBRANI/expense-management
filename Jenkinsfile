@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build & Deploy with Docker Compose') {
             steps {
-                sh '''
+                bat '''
                 cd docker
                 docker-compose down
                 docker-compose up --build -d
