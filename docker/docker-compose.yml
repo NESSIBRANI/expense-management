@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: expense-db
+    environment:
+      POSTGRES_DB: expense_db
+      POSTGRES_USER: expense_user
+      POSTGRES_PASSWORD: expense123
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    container_name: expense-backend
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_APPLICATION_NAME: expense-backend
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/expense_db
+      SPRING_DATASOURCE_USERNAME: expense_user
+      SPRING_DATASOURCE_PASSWORD: expense123
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend/Dockerfile
+    container_name: expense-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend

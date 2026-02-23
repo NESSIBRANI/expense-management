@@ -1,18 +1,17 @@
 @use '@angular/material' as mat;
 
 /* =========================================
-   ANGULAR MATERIAL 3 THEME (PROPER VERSION)
+   ANGULAR MATERIAL 3 THEME
    ========================================= */
 
+/* Include core styles */
 @include mat.core();
 
 /* ---------- PALETTES ---------- */
-
 $primary: mat.$azure-palette;
 $secondary: mat.$blue-palette;
 
 /* ---------- THEME ---------- */
-
 $expense-theme: mat.define-theme((
   color: (
     theme-type: light,
@@ -28,32 +27,22 @@ $expense-theme: mat.define-theme((
   )
 ));
 
-/* Apply to whole app */
+/* Apply theme globally */
 :root {
   @include mat.all-component-themes($expense-theme);
 }
 
-
-/* =========================================
-   GLOBAL APP STYLE
-   ========================================= */
-
+/* ---------- GLOBAL STYLES ---------- */
 html, body {
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-
-  /* SaaS background */
   background: linear-gradient(180deg, #f5f7fb 0%, #eef2f7 100%);
 }
 
-
-/* Scrollbar (pro look) */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
