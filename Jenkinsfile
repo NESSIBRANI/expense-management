@@ -14,8 +14,18 @@ pipeline {
             steps {
                 sh '''
                 cd docker
-                docker compose down
-                docker compose up --build -d
+
+                docker run --rm \
+                  -v /var/run/docker.sock:/var/run/docker.sock \
+                  -v "$PWD:/work" \
+                  -w /work \
+                  docker/compose:latest down
+
+                docker run --rm \
+                  -v /var/run/docker.sock:/var/run/docker.sock \
+                  -v "$PWD:/work" \
+                  -w /work \
+                  docker/compose:latest up --build -d
                 '''
             }
         }
