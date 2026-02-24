@@ -10,6 +10,15 @@ pipeline {
             }
         }
 
+        stage('Build Backend (Maven)') {
+            steps {
+                sh '''
+                cd backend/expense-backend
+                mvn clean package -DskipTests
+                '''
+            }
+        }
+
         stage('Build & Deploy with Docker Compose') {
             steps {
                 sh '''
