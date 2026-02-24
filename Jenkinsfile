@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh '''
                 docker run --rm \
-                  -v "$PWD/backend/expense-backend":/app \
+                  -v "$PWD/backend/expense-backend/expense-backend":/app \
                   -v "$HOME/.m2":/root/.m2 \
                   -w /app \
                   maven:3.9.9-eclipse-temurin-17 \
