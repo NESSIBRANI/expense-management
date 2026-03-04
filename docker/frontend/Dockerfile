@@ -8,5 +8,5 @@ RUN npm install && npm run build
 
 # Serve with nginx
 FROM nginx:alpine
-COPY --from=build /app/dist/expense-frontend/ /usr/share/nginx/html/
+COPY --from=build /app/dist/expense-frontend/browser/ /usr/share/nginx/html/
 EXPOSE 80
