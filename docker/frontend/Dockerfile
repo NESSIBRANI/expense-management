@@ -2,13 +2,11 @@
 FROM node:20 AS build
 WORKDIR /app
 
-# Copy Angular project
 COPY frontend/expense-frontend/ .
 
-# Install deps & build
 RUN npm install && npm run build
 
-# ===== Serve with Nginx =====
+# ===== Serve with nginx =====
 FROM nginx:alpine
-COPY --from=build /app/dist/expense-frontend /usr/share/nginx/html
+COPY --from=build /app/dist/browser /usr/share/nginx/html
 EXPOSE 80
